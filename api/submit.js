@@ -17,15 +17,13 @@ module.exports = async (req, res) => {
   const octokit = new Octokit({ auth: token });
 
     if (req.method === "POST" && req.body.mode === "admin-login") {
-    const inputPass = req.body.passInput;
-    const realPass = process.env.ADMIN_PASSWORD;
-
-    if (inputPass === realPass) {
+    const input = req.body.passInput;
+    if (input === adminPass) {
       return res.status(200).json({ success: true });
     } else {
-      return res.status(401).json({ success: false, error: "Password salah." });
+      return res.status(401).json({ success: false, error: "Password salah" });
     }
-    }
+  }
 
   // GET: Ambil data
   if (req.method === "GET") {
