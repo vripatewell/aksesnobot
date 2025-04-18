@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
     if (req.method === "POST" && req.body.mode === "admin-login") {
     const input = req.body.passInput;
     if (input === adminPass) {
-      return res.status(200).json({ success: true });
+      return res.status(200).json({ success: true, log: "login sukses" });
     } else {
       return res.status(401).json({ success: false, error: "Password salah" });
     }
