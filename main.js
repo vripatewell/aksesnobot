@@ -135,7 +135,7 @@ jadi kesimpulannya data ini hanya 1x kirim salin
 untuk mengamankan data agar tidak hilang 
     `;
   } else {
-    userArea.innerHTML = "<p>Belum ada data disimpan.</p>";
+    userArea.innerHTML = "Belum ada data disimpan.";
   }
 }
 
