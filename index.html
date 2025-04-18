@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="id"><head>
+  <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+      <link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap" rel="stylesheet">
+  <title>Tambah Nomor Akses</title>
+ 
+</head>
+<body>
+  <div id="status" class="status-message"></div>
+  <div class="container" id="mainForm">
+<div style="text-align: center; margin-top: 10px;">
+  <a href="https://youtube.com/@rikishopreal" target="_blank" style="font-size: 18px; color: cyan; text-shadow: 0 0 8px cyan; text-decoration: underline; text-decoration-color: cyan; text-underline-offset: 4px;">
+    yt : rikishopreal
+  </a>
+</div>
+<div class="jam-wrapper">
+  <p id="clock" class="jam"></p>
+</div>
+    <h2>Tambah Nomor Akses</h2>
+    <button onclick="togglePanduan()"><span>Lihat Panduan</span></button>
+    <div id="panduanBox" class="hidden" style="margin-bottom: 1rem; background: #0000; padding: 1rem; border-radius: 10px;">
+      <h4>Panduan Penggunaan</h4>
+      <ul>
+        <li>Masukkan nomor dan password dengan benar.</li>
+        <li>Nomor yang diblacklist tidak bisa ditambahkan kembali.</li>
+        <li>Gunakan format nomor: +62xxxxxxxxxxx.</li>
+        <li>Admin dapat mengelola daftar nomor melalui login admin.</li>
+      </ul>
+    </div>
+    <input type="text" id="nomor" placeholder="Masukkan Nomor" />
+    <input type="text" id="password" placeholder="Masukkan Password" />
+    <button onclick="tambahNomor()"><span>Tambah</span></button>
+    <hr />
+    <button onclick="toggleDaftarNomor()"><span>Lihat Daftar Nomor</span></button>
+    <textarea id="listUserArea" class="hidden" readonly style="width: 100%; height: 120px; border: 1px solid #ccc; border-radius: 10px; padding: 10px; font-family: sans-serif;"></textarea>
+<h3 style="margin-bottom: 4px; font-weight: bold;">DATA ANDA</h3>
+<textarea id="userPrivate" style="margin-top: 0;"></textarea>
+    <hr />
+    <h2 style="margin-bottom: 4px; font-weight: bold;">AKSES ADMIN BOT</h2>
+    <input type="password" id="adminPass" placeholder="Password Admin" />
+    <button onclick="adminLogin()"><span>Login Admin</span></button>
+<div class="status hidden" id="status" style="position: fixed; top: 15px; left: 50%; transform: translateX(-50%); z-index: 999; transition: opacity 0.5s ease;"></div>
+  </div>
+  <p id="status" style="text-align:center; color:#00faff; margin-top:10px;"></p>
+</div>
+  <div class="container hidden" id="adminPanel">
+<div style="text-align: center; margin-top: 10px;">
+  <a href="https://youtube.com/@rikishopreal" target="_blank" style="font-size: 18px; color: cyan; text-shadow: 0 0 8px cyan; text-decoration: underline; text-decoration-color: cyan; text-underline-offset: 4px;">
+    yt : rikishopreal
+  </a>
+</div>
+    <h1 style="text-align: center; font-size: 1.5rem; font-weight: bold;">AKSES ADMIN BOT</h1>
+    <button onclick="toggleBlacklist()"><span>Lihat Daftar Blacklist</span></button>
+     <div id="blacklistBox" class="hidden" style="margin-top: 1rem; background: #0000; padding: 1rem; border-radius: 10px;">
+  <h4>Nomor yang Diblacklist</h4>
+  <textarea id="blacklistArea" readonly style="width: 100%; height: 120px; border-radius: 10px; font-family: monospace;"></textarea>
+    <button onclick="hapusDariBlacklist()"><span>Hapus dari Blacklist</span></button>   
+     <select id="blacklistSelect" style="margin-top: 10px;"></select>
+</div>
+    <button onclick="lihatPengguna()"><span>Refresh Daftar</span></button>
+<textarea id="outputArea" readonly></textarea>
+    <button onclick="hapusNomor()"><span>Hapus Nomor</span></button>
+    <button onclick="blacklistNomor()"><span>Blacklist Nomor</span></button>
+     <select id="nomorSelect">
+      <option value="">Pilih nomor...</option>
+    </select>
+    <button onclick="kembali(true)"><span>BCK</span></button>
+    <div class="status hidden" id="statusAdmin" style="position: fixed; top: 15px; left: 50%; transform: translateX(-50%); z-index: 999; transition: opacity 0.5s ease;"></div>
+  </div>
+  
+  <audio id="notifSound" src="https://j.top4top.io/m_3389ao59k0.mp3" preload="auto"></audio>
+  
+  <script src="main.js"></script>
+</body>
+</html>
