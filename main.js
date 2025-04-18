@@ -194,7 +194,19 @@ async function lihatPenggunaUmum() {
 
 async function adminLogin() {
   const pass = document.getElementById("adminPass").value;
-  if (pass === passwordAdmin) {
+
+  const res = await fetch("/api/submit", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      mode: "admin-login",
+      password: pass
+    }),
+  });
+
+  const data = await res.json();
+
+  if (data.success) {
     isAdmin = true;
     document.getElementById("mainForm").classList.add("hidden");
     document.getElementById("adminPanel").classList.remove("hidden");
@@ -203,7 +215,6 @@ async function adminLogin() {
     updateSelectOptions();
     showAdminPanel();
 
-    // Menampilkan teks login sukses
     const status = document.getElementById("status");
     status.textContent = "Login sukses!";
     status.style.color = "#00faff";
