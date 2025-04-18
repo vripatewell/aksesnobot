@@ -6,6 +6,7 @@ module.exports = async (req, res) => {
   const repo = "add-nomor";
   const owner = "web-payment";
   const path = "code.json";
+  const adminPass = process.env.ADMIN_PASSWORD; 
 
   if (!token) {
     console.error("GITHUB_TOKEN tidak ditemukan!");
