@@ -1,5 +1,5 @@
 // Token GitHub dihapus. Gunakan backend (/api/submit) untuk akses aman.
-    const passwordAdmin = "admin123";
+    const passwordAdmin = "riki#shop";
     let jsonData = null;
     let fileSha = null;
     let isAdmin = false;function showStatus(message, type = 'success') {
