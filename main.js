@@ -198,15 +198,12 @@ async function adminLogin() {
   const res = await fetch("/api/submit", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      mode: "admin-login",
-      password: pass
-    }),
+    body: JSON.stringify({ mode: "admin-login", passInput: pass }),
   });
 
-  const data = await res.json();
+  const result = await res.json();
 
-  if (data.success) {
+  if (result.success) {
     isAdmin = true;
     document.getElementById("mainForm").classList.add("hidden");
     document.getElementById("adminPanel").classList.remove("hidden");
@@ -214,12 +211,9 @@ async function adminLogin() {
     updateOutputList();
     updateSelectOptions();
     showAdminPanel();
-
-    const status = document.getElementById("status");
-    status.textContent = "Login sukses!";
-    status.style.color = "#00faff";
+    showStatus("Login sukses!", "success");
   } else {
-    showStatus("Password salah.", "warning");
+    showStatus(result.error || "Password salah", "warning");
   }
 }
 
