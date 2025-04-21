@@ -142,41 +142,45 @@ untuk mengamankan data agar tidak hilang
 async function tambahNomor() {
   const nomor = document.getElementById("nomor").value.trim();
   const password = document.getElementById("password").value.trim();
+
   if (!nomor || !password) {
     showStatus("Nomor dan password harus diisi.", "warning");
     return;
   }
 
-  // Cek apakah awalan 62
-  if (!nomor.startsWith("62")) {
-    showStatus("Nomor harus diawali dengan 62, bukan 08.", "warning");
+  // Validasi nomor harus diawali dengan kode negara (gunakan tanda + atau angka)
+  const kodeNegaraValid = /^(\+?\d{1,4})\d{6,14}$/; // contoh: +1xxxxxx, 628xxxxxx, 447xxxxxxx
+  if (!kodeNegaraValid.test(nomor)) {
+    showStatus("Nomor harus menggunakan kode negara yang benar (cth: +628xxx atau 628xxx).", "warning");
     return;
   }
 
-  // Validasi isi nomor (panjang & angka)
-  const nomorValid = /^\d{9,14}$/; // misal valid kalau total 11-16 digit
-  if (!nomorValid.test(nomor)) {
-    showStatus("Nomor tidak valid atau tidak terdaftar.", "warning");
+  // Normalisasi: hapus "+" jika ada
+  const nomorBersih = nomor.replace(/^\+/, "");
+
+  // Validasi panjang dan angka
+  if (!/^\d{9,16}$/.test(nomorBersih)) {
+    showStatus("Nomor tidak valid atau panjang tidak sesuai (9-16 digit).", "warning");
     return;
   }
 
   await ambilData();
 
-  if (jsonData.blacklist?.includes(nomor)) {
+  if (jsonData.blacklist?.includes(nomorBersih)) {
     return showStatus("Nomor ini diblacklist.", "warning");
   }
 
-  // Cek apakah nomor sudah ada
-  const sudahAda = jsonData.users.some(user => user.nomor === nomor);
+  const sudahAda = jsonData.users.some(user => user.nomor === nomorBersih);
   if (sudahAda) {
     return showStatus("Nomor sudah terdaftar.", "warning");
   }
 
   const waktu = new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" });
-  jsonData.users.push({ nomor, password, waktu });
-  const berhasil = await simpanData(`Tambah nomor ${nomor}`);
+  jsonData.users.push({ nomor: nomorBersih, password, waktu });
+
+  const berhasil = await simpanData(`Tambah nomor ${nomorBersih}`);
   if (berhasil) {
-    localStorage.setItem("userData", JSON.stringify({ nomor, password }));
+    localStorage.setItem("userData", JSON.stringify({ nomor: nomorBersih, password }));
     tampilkanDataUserSendiri();
     document.getElementById("nomor").value = "";
     document.getElementById("password").value = "";
