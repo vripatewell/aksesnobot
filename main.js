@@ -148,39 +148,35 @@ async function tambahNomor() {
     return;
   }
 
-  // Validasi nomor harus diawali dengan kode negara (gunakan tanda + atau angka)
-  const kodeNegaraValid = /^(\+?\d{1,4})\d{6,14}$/; // contoh: +1xxxxxx, 628xxxxxx, 447xxxxxxx
-  if (!kodeNegaraValid.test(nomor)) {
-    showStatus("Nomor harus menggunakan kode negara yang benar (cth: +628xxx atau 628xxx).", "warning");
+  // Tolak jika diawali dengan 0, +, atau -
+  if (/^(0|\+|-)/.test(nomor)) {
+    showStatus("Nomor harus diawali dengan kode negara (contoh: 628xxxx), tanpa 0, +, atau -.", "warning");
     return;
   }
 
-  // Normalisasi: hapus "+" jika ada
-  const nomorBersih = nomor.replace(/^\+/, "");
-
-  // Validasi panjang dan angka
-  if (!/^\d{9,16}$/.test(nomorBersih)) {
-    showStatus("Nomor tidak valid atau panjang tidak sesuai (9-16 digit).", "warning");
+  // Validasi nomor hanya angka dan panjang 9–16 digit
+  if (!/^\d{9,16}$/.test(nomor)) {
+    showStatus("Nomor tidak valid (hanya angka, 9-16 digit).", "warning");
     return;
   }
 
   await ambilData();
 
-  if (jsonData.blacklist?.includes(nomorBersih)) {
+  if (jsonData.blacklist?.includes(nomor)) {
     return showStatus("Nomor ini diblacklist.", "warning");
   }
 
-  const sudahAda = jsonData.users.some(user => user.nomor === nomorBersih);
+  const sudahAda = jsonData.users.some(user => user.nomor === nomor);
   if (sudahAda) {
     return showStatus("Nomor sudah terdaftar.", "warning");
   }
 
   const waktu = new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" });
-  jsonData.users.push({ nomor: nomorBersih, password, waktu });
+  jsonData.users.push({ nomor, password, waktu });
 
-  const berhasil = await simpanData(`Tambah nomor ${nomorBersih}`);
+  const berhasil = await simpanData(`Tambah nomor ${nomor}`);
   if (berhasil) {
-    localStorage.setItem("userData", JSON.stringify({ nomor: nomorBersih, password }));
+    localStorage.setItem("userData", JSON.stringify({ nomor, password }));
     tampilkanDataUserSendiri();
     document.getElementById("nomor").value = "";
     document.getElementById("password").value = "";
