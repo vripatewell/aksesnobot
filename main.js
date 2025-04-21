@@ -154,7 +154,7 @@ async function tambahNomor() {
   }
 
   // Validasi isi nomor (panjang & angka)
-  const nomorValid = /^62\d{9,14}$/; // misal valid kalau total 11-16 digit
+  const nomorValid = /^\d{9,14}$/; // misal valid kalau total 11-16 digit
   if (!nomorValid.test(nomor)) {
     showStatus("Nomor tidak valid atau tidak terdaftar.", "warning");
     return;
