@@ -150,13 +150,13 @@ async function tambahNomor() {
 
   // Tolak jika diawali dengan 0, +, atau -
   if (/^(0|\+|-)/.test(nomor)) {
-    showStatus("Nomor harus diawali dengan kode negara (contoh: 628xxxx), tanpa 0, +, atau -.", "warning");
+    showStatus("Nomor harus diawali dengan\nkode negara (contoh: 628xxxx), tanpa 0, +, atau -.", "warning");
     return;
   }
 
   // Validasi nomor hanya angka dan panjang 9–16 digit
   if (!/^\d{9,16}$/.test(nomor)) {
-    showStatus("Nomor tidak valid (hanya angka, 9-16 digit).", "warning");
+    showStatus("Nomor tidak valid\n(hanya angka, 9-16 digit).", "warning");
     return;
   }
 
