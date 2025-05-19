@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
   const token = process.env.GITHUB_TOKEN;
   const repo = "add-nomor";
   const owner = "web-payment";
-  const path = "code.json";
+  const path = "path/ke/code.json";
   const adminPass = process.env.ADMIN_PASSWORD; 
 
   if (!token) {
