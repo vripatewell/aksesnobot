@@ -7,7 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap" rel="stylesheet">
   <title>Tambah Nomor Akses</title>
   <style>
-    /* ...style navbar dan section seperti sebelumnya... */
     .navbar {
       margin-top: 20px;
       background: rgba(0, 0, 0, 0.5);
@@ -106,18 +105,15 @@
       <textarea id="userPrivate" style="margin-top: 0;"></textarea>
     </div>
 
-    <!-- ADMIN PANEL & LOGIN ADMIN -->
+    <!-- LOGIN ADMIN -->
     <div class="section" id="adminpanel">
       <h2 style="margin-bottom: 4px; font-weight: bold;">AKSES ADMIN BOT</h2>
+      <input type="password" id="adminPass" placeholder="Password Admin" />
+      <button onclick="adminLogin()"><span>Login Admin</span></button>
 
-      <!-- Bagian Login Admin (akan tetap tampil sampai login berhasil) -->
-      <div id="adminLoginSection">
-        <input type="password" id="adminPass" placeholder="Password Admin" />
-        <button onclick="adminLogin()"><span>Login Admin</span></button>
-      </div>
-
-      <!-- Panel Admin setelah login berhasil, awalnya tersembunyi -->
-      <div id="adminPanel" class="hidden">
+      <!-- Panel Admin Sebenarnya -->
+      <div class="hidden" id="adminPanel">
+            <h1 style="text-align: center;">AKSES ADMIN BOT</h1>
         <button onclick="toggleBlacklist()"><span>Lihat Daftar Blacklist</span></button>
         <div id="blacklistBox" class="hidden">
           <h4>Nomor yang Diblacklist</h4>
@@ -132,28 +128,52 @@
         <select id="nomorSelect" style="background-color:#000; color:#00ffff;">
           <option value="">Pilih nomor...</option>
         </select>
-        <button onclick="kembali()"><span>BCK</span></button>
+        <button onclick="kembali(true)"><span>BCK</span></button>
         <div class="status hidden" id="statusAdmin"></div>
       </div>
     </div>
   </div>
 
   <script src="main.js"></script>
-
   <script>
-    // Fungsi kembali untuk tombol BCK di admin panel
-    function kembali() {
-      document.getElementById("adminPanel").classList.add("hidden");
-      document.getElementById("adminLoginSection").classList.remove("hidden");
-      document.getElementById("adminPass").value = "";
+    function updateClock() {
+      const now = new Date();
+      const hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+      const bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+      const namaHari = hari[now.getDay()];
+      const tanggal = now.getDate();
+      const namaBulan = bulan[now.getMonth()];
+      const tahun = now.getFullYear();
+      const jam = now.toLocaleTimeString('id-ID', { hour12: false });
+      const fullWaktu = `${namaHari}, ${tanggal} ${namaBulan} ${tahun} - ${jam}`;
+      document.getElementById("clock-bar").textContent = fullWaktu;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    function showStatusLogin(message, type = 'success') {
+      const el = document.getElementById("status");
+      const sound = document.getElementById("notifSound");
+      sound.src = type === 'success' ? "benar.mp3" : "salah.mp3";
+      el.innerText = message;
+      el.className = `status ${type}`;
+      el.classList.remove("hidden");
+      el.style.opacity = 1;
+      sound.currentTime = 0;
+      sound.play();
+      setTimeout(() => {
+        el.style.opacity = 0;
+        setTimeout(() => el.classList.add("hidden"), 500);
+      }, 3000);
     }
 
     function showSection(id) {
-      document.querySelectorAll(".section").forEach((el) => el.classList.remove("active"));
-      document.getElementById(id).classList.add("active");
+      document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
     }
 
-    // Login awal (database) - ini kode asli kamu, tidak diubah
+    // LOGIN SISTEM
     document.addEventListener("DOMContentLoaded", function () {
       const loginBtn = document.getElementById("loginBtn");
       loginBtn.addEventListener("click", function () {
@@ -171,28 +191,13 @@
           statusBar.classList.remove("hidden");
           showSection("addakses");
           music.play().catch(() => {});
-          showStatus("Login berhasil!", "success");
+          showStatusLogin("Login berhasil!", "success");
         } else {
-          showStatus("Password salah!", "warning");
+          showStatusLogin("Password salah!", "warning");
         }
       });
     });
 
-    function showStatus(message, type = "success") {
-      const el = document.getElementById("status");
-      const sound = document.getElementById("notifSound");
-      sound.src = type === "success" ? "benar.mp3" : "salah.mp3";
-      el.innerText = message;
-      el.className = `status ${type}`;
-      el.classList.remove("hidden");
-      el.style.opacity = 1;
-      sound.currentTime = 0;
-      sound.play();
-      setTimeout(() => {
-        el.style.opacity = 0;
-        setTimeout(() => el.classList.add("hidden"), 500);
-      }, 3000);
-    }
   </script>
 </body>
 </html>
