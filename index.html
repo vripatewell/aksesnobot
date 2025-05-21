@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="id">
+<!DOCTYPE html><html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -7,7 +6,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap" rel="stylesheet">
   <title>Tambah Nomor Akses</title>
   <style>
-    .navbar {
+     .navbar {
       margin-top: 20px;
       background: rgba(0, 0, 0, 0.5);
       padding: 12px;
@@ -43,111 +42,85 @@
     }
   </style>
 </head>
-
 <body>
   <!-- LOGIN AWAL -->
   <div id="loginScreen">
     <div class="container">
       <h2 style="text-align:center;">LOGIN DATABASE</h2>
+         <hr />
       <input type="password" id="passwordLogin" placeholder="Masukkan password" />
       <button id="loginBtn"><span>Login</span></button>
     </div>
+  </div><audio id="loginMusic" src="musik.mp3" loop preload="auto"></audio> <audio id="notifSound" preload="auto"></audio>
+
+  <div id="clock-bar" class="jam-bar hidden"></div>
+  <div id="status" class="status-message hidden"></div>  <div class="container hidden" id="mainForm">
+    <div style="text-align: center; margin-top: 10px;">
+      <a href="https://youtube.com/@rikishopreal" target="_blank">
+        <div class="neon-yt">YT : RIKISHOPREAL</div>
+      </a>
+<div class="navbar">
+      <button onclick="showTab('addAkses')">Add Akses</button>
+      <button onclick="showTab('listNomor')">List Nomor</button>
+      <button onclick="showTab('adminLogin')">Admin Panel</button>
+    </div>
+
+<div class="tab-content">
+  <div id="addAkses" class="tab-pane">
+    <h2>Tambah Nomor Akses</h2><hr />
+    <button onclick="togglePanduan()"><span>Lihat Panduan</span></button>
+    <div id="panduanBox" class="hidden" style="margin-bottom: 1rem;">
+      <h4>Panduan Penggunaan</h4>
+      <ul>
+        <li>Masukkan nomor dan password dengan benar.</li>
+        <li>Nomor yang diblacklist tidak bisa ditambahkan kembali.</li>
+        <li>Gunakan format nomor: +62xxxxxxxxxxx.</li>
+        <li>Admin dapat mengelola daftar nomor melalui login admin.</li>
+      </ul>
+    </div>
+    <input type="text" id="nomor" placeholder="Masukkan Nomor" />
+    <input type="text" id="password" placeholder="Masukkan Password" />
+    <button onclick="tambahNomor()"><span>Tambah</span></button>
   </div>
 
-  <!-- MUSIK DAN SUARA -->
-  <audio id="loginMusic" src="musik.mp3" loop preload="auto"></audio>
-  <audio id="notifSound" preload="auto"></audio>
+  <div id="listNomor" class="tab-pane hidden">
+    <h3 style="margin-bottom: 4px; font-weight: bold;">DATA ANDA</h3>   <hr />
+    <textarea id="userPrivate" style="margin-top: 0;"></textarea>
+    <button onclick="toggleDaftarNomor()"><span>Lihat Daftar Nomor</span></button>
+    <textarea id="listUserArea" class="hidden" readonly style="width: 100%; height: 120px;"></textarea>
+  </div>
 
-  <!-- STATUS NOTIF -->
-  <div id="clock-bar" class="jam-bar hidden"></div>
-  <div id="status" class="status-message hidden"></div>
+  <div id="adminLogin" class="tab-pane hidden">
+    <h2 style="margin-bottom: 4px; font-weight: bold;">AKSES ADMIN BOT</h2>   <hr />
+    <input type="password" id="adminPass" placeholder="Password Admin" />
+    <button onclick="adminLogin()"><span>Login Admin</span></button>
+  </div>
+</div>
 
-  <!-- HALAMAN UTAMA -->
-  <div class="container hidden" id="mainForm">
-    <!-- YT Link -->
+  </div>  <div class="container hidden" id="adminPanel">
     <div style="text-align: center; margin-top: 10px;">
       <a href="https://youtube.com/@rikishopreal" target="_blank">
         <div class="neon-yt">YT : RIKISHOPREAL</div>
       </a>
     </div>
-
-    <!-- Navigasi Tab -->
-    <div class="navbar">
-      <button onclick="showSection('addakses')">Add Akses</button>
-      <button onclick="showSection('listnomor')">List Nomor</button>
-      <button onclick="showSection('adminpanel')">Admin Panel</button>
-    </div>
-
-    <!-- ADD AKSES -->
-    <div class="section active" id="addakses">
-      <h2>Tambah Nomor Akses</h2>
-      <button onclick="togglePanduan()"><span>Lihat Panduan</span></button>
-      <div id="panduanBox" class="hidden" style="margin-bottom: 1rem;">
-        <h4>Panduan Penggunaan</h4>
-        <ul>
-          <li>Masukkan nomor dan password dengan benar.</li>
-          <li>Nomor yang diblacklist tidak bisa ditambahkan kembali.</li>
-          <li>Gunakan format nomor: +62xxxxxxxxxxx.</li>
-          <li>Admin dapat mengelola daftar nomor melalui login admin.</li>
-        </ul>
-      </div>
-      <input type="text" id="nomor" placeholder="Masukkan Nomor" />
-      <input type="text" id="password" placeholder="Masukkan Password" />
-      <button onclick="tambahNomor()"><span>Tambah</span></button>
-    </div>
-
-    <!-- LIST NOMOR -->
-    <div class="section" id="listnomor">
-      <h2>List Nomor</h2>
-      <button onclick="toggleDaftarNomor()"><span>Lihat Daftar Nomor</span></button>
-      <textarea id="listUserArea" class="hidden" readonly style="width: 100%; height: 120px;"></textarea>
-      <h3 style="margin-bottom: 4px; font-weight: bold;">DATA ANDA</h3>
-      <textarea id="userPrivate" style="margin-top: 0;"></textarea>
-    </div>
-
-    <!-- LOGIN ADMIN -->
-    <div class="section" id="adminpanel">
-      <h2 style="margin-bottom: 4px; font-weight: bold;">AKSES ADMIN BOT</h2>
-      <input type="password" id="adminPass" placeholder="Password Admin" />
-      <button onclick="adminLogin()"><span>Login Admin</span></button>
-
-      <!-- Panel Admin Sebenarnya -->
-      <div class="hidden" id="adminPanel">
-    <h1 style="text-align: center;">AKSES ADMIN BOT</h1>
+    <h1 style="text-align: center;">AKSES ADMIN BOT</h1> <hr />
     <button onclick="toggleBlacklist()"><span>Lihat Daftar Blacklist</span></button>
     <div id="blacklistBox" class="hidden">
       <h4>Nomor yang Diblacklist</h4>
       <textarea id="blacklistArea" readonly style="background-color: rgba(0, 0, 0, 0.2); color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff;"></textarea>
       <button onclick="hapusDariBlacklist()"><span>Hapus dari Blacklist</span></button>
-      <select id="blacklistSelect" style="
-  background-color: #000000;
-  color: #00ffff;
-  border: 1px solid #00ffff;
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0 0 15px #00ffff;
-"></select>
+      <select id="blacklistSelect" style="background-color: #000000; color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff;"></select>
     </div>
     <button onclick="lihatPengguna()"><span>Refresh Daftar</span></button>
     <textarea id="outputArea" readonly></textarea>
     <button onclick="hapusNomor()"><span>Hapus Nomor</span></button>
     <button onclick="blacklistNomor()"><span>Blacklist Nomor</span></button>
-    <select id="nomorSelect" style="
-  background-color: #000000;
-  color: #00ffff;
-  border: 1px solid #00ffff;
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0 0 15px #00ffff;
-">
-  <option value="">Pilih nomor...</option>
-</select>
+    <select id="nomorSelect" style="background-color: #000000; color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff;">
+      <option value="">Pilih nomor...</option>
+    </select>
     <button onclick="kembali(true)"><span>BCK</span></button>
     <div class="status hidden" id="statusAdmin"></div>
-  </div>
-
-  <script src="main.js"></script>
-  <script>
+  </div>  <script src="main.js"></script>  <script>
     function updateClock() {
       const now = new Date();
       const hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
@@ -157,16 +130,17 @@
       const namaBulan = bulan[now.getMonth()];
       const tahun = now.getFullYear();
       const jam = now.toLocaleTimeString('id-ID', { hour12: false });
+
       const fullWaktu = `${namaHari}, ${tanggal} ${namaBulan} ${tahun} - ${jam}`;
       document.getElementById("clock-bar").textContent = fullWaktu;
     }
-
     setInterval(updateClock, 1000);
     updateClock();
 
     function showStatusLogin(message, type = 'success') {
       const el = document.getElementById("status");
       const sound = document.getElementById("notifSound");
+
       sound.src = type === 'success' ? "benar.mp3" : "salah.mp3";
       el.innerText = message;
       el.className = `status ${type}`;
@@ -180,29 +154,15 @@
       }, 3000);
     }
 
-    function showSection(id) {
-      document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
-
-    // LOGIN SISTEM
     document.addEventListener("DOMContentLoaded", function () {
-      const loginBtn = document.getElementById("loginBtn");
-      loginBtn.addEventListener("click", function () {
+      document.getElementById("loginBtn").addEventListener("click", function () {
         const pass = document.getElementById("passwordLogin").value;
-        const loginScreen = document.getElementById("loginScreen");
-        const mainForm = document.getElementById("mainForm");
-        const jamBar = document.getElementById("clock-bar");
-        const statusBar = document.getElementById("status");
-        const music = document.getElementById("loginMusic");
-
         if (pass === "masuk123") {
-          loginScreen.classList.add("hidden");
-          mainForm.classList.remove("hidden");
-          jamBar.classList.remove("hidden");
-          statusBar.classList.remove("hidden");
-          showSection("addakses");
-          music.play().catch(() => {});
+          document.getElementById("loginScreen").classList.add("hidden");
+          document.getElementById("mainForm").classList.remove("hidden");
+          document.getElementById("clock-bar").classList.remove("hidden");
+          document.getElementById("status").classList.remove("hidden");
+          document.getElementById("loginMusic").play().catch(() => console.warn("Autoplay diblokir."));
           showStatusLogin("Login berhasil!", "success");
         } else {
           showStatusLogin("Password salah!", "warning");
@@ -210,6 +170,13 @@
       });
     });
 
-  </script>
-</body>
+    function showTab(tabId) {
+      const tabs = document.querySelectorAll(".tab-pane");
+      tabs.forEach(tab => tab.classList.add("hidden"));
+      document.getElementById(tabId).classList.remove("hidden");
+      const buttons = document.querySelectorAll(".nav-tabs button");
+      buttons.forEach(btn => btn.classList.remove("active"));
+      event.target.classList.add("active");
+    }
+  </script></body>
 </html>
