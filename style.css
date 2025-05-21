@@ -1,21 +1,28 @@
 * {
   scroll-behavior: smooth;
   transition: all 0.3s ease-in-out;
-  font-family: 'Rampart One', cursive !important;
+  font-family: 'Outfit', sans-serif !important;
   color: #00ffff;
-  text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+  text-shadow: 0 0 5px white, 0 0 10px white;
   box-sizing: border-box;
 }
 
     body {
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #000000, #1a1a1a, #000000);
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0,0,0,0.2)), url('namafoto.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   color: #ffffff;
   font-family: 'Rubik Glitch', cursive;
-  background-size: 400% 400%;
-  animation: backgroundShift 20s ease infinite;
   overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
 }
 @keyframes backgroundShift {
   0% {background-position: 0% 50%;}
@@ -25,22 +32,22 @@
 
 h1, h2, h3, label, button, input, p, a, span {
   font-family: 'Rampart One', cursive;
-  color: #00ffff;
-  text-shadow: 0 0 5px #00ffff, 0 0 15px #00ffff;
+  color: #00faff;
+text-shadow: 0 0 4px rgba(0, 255, 255, 0.4);
 }
 
 hr {
   border: none;
   height: 2px;
   background: #00ffff; 
-  margin: 30px 0; 
+  margin: 20px 0 20px 0;
   box-shadow: 0 0 10px #00ffff;
 }
 
 #outputArea,
 #listUserArea,
 #userPrivate {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.2);
   color: #00ffff;
   font-family: 'Rampart One', cursive;
   text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
@@ -54,10 +61,11 @@ hr {
 }
 
     .container {
+  margin-top: 80px;
   max-width: 600px;
   margin: auto;
   padding: 30px;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.4);
   border-radius: 20px;
   box-shadow: 0 0 20px #00ffff;
   margin-top: 50px;
@@ -159,6 +167,8 @@ label {
 }
 
 #clock {
+  margin: 0;
+  padding: 0;
   font-family: 'Rampart One', cursive;
   font-size: 6vw;
   font-weight: bold;
@@ -204,7 +214,7 @@ label {
 }
 
 button {
-  background: #0f0f0f;
+  background: transparent;
   color: #00ffff;
   border: 2px solid #00ffff;
   padding: 10px 20px;
@@ -214,14 +224,14 @@ button {
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  transition: 0.3s ease-in-out;
-  box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff50;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 10px #00ffff50;
+  backdrop-filter: blur(4px); /* tambahan efek kaca */
 }
 
 button:hover {
-  background: #001f1f;
-  color: #00ffff;
-  box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff70, 0 0 60px #00ffff50;
+  background-color: rgba(0, 255, 255, 0.1);
+  box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff70;
   transform: scale(1.05);
 }
 
@@ -232,7 +242,7 @@ button::after {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(0,255,255,0.2) 10%, transparent 70%);
+  background: radial-gradient(circle, rgba(0,255,255,0.15) 10%, transparent 70%);
   animation: pulseGlow 2s infinite;
   z-index: 0;
 }
@@ -264,34 +274,34 @@ textarea {
   border: 1px solid #00ffff;
   padding: 10px;
 }
-
-select, option {
-  background-color: #111;
-  color: #00ffff;
+.jam-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  color: cyan;
+  font-family: 'Rampart One', cursive;
   font-weight: bold;
-  border: 1px solid #00ffff;
-}
-.jam-wrapper {
+  font-size: 1.2rem;
   text-align: center;
-  margin-top: 5px;
-  margin-bottom: 10px;
+  border-radius: 0;
+  box-shadow: 0 0 15px cyan;
+  text-shadow: 0 0 5px cyan, 0 0 10px cyan;
+  backdrop-filter: blur(4px);
 }
-
-.jam-label {
-  color: cyan;
-  font-weight: bold;
+.neon-yt {
+  color: #00ffff;
+  background: rgba(0, 0, 0, 0.15);
+  padding: 10px 20px;
+  border-radius: 15px;
+  text-align: center;
   font-size: 18px;
-  text-shadow: 0 0 5px cyan, 0 0 10px cyan;
-  margin-bottom: 4px;
-  border-bottom: 2px solid cyan;
-  display: inline-block;
-  padding-bottom: 2px;
-}
-
-.jam {
-  font-size: 20px;
-  color: cyan;
   font-weight: bold;
-  text-shadow: 0 0 5px cyan, 0 0 10px cyan;
-  margin: 0;
+  text-shadow: 0 0 8px #00ffff, 0 0 12px #00ffff, 0 0 16px #00ffff;
+  box-shadow: 0 0 8px #00ffff;
+  display: inline-block;
+  backdrop-filter: blur(2px); /* Tambahan efek blur transparan */
 }

@@ -1,25 +1,41 @@
-<!DOCTYPE html><html lang="id"><head>
+<!DOCTYPE html>
+<html lang="id">
+<head>
   <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-      <link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap" rel="stylesheet">
   <title>Tambah Nomor Akses</title>
- 
 </head>
+
 <body>
-  <div id="status" class="status-message"></div>
-  <div class="container" id="mainForm">
-<div style="text-align: center; margin-top: 10px;">
-  <a href="https://youtube.com/@rikishopreal" target="_blank" style="font-size: 18px; color: cyan; text-shadow: 0 0 8px cyan; text-decoration: underline; text-decoration-color: cyan; text-underline-offset: 4px;">
-    yt : rikishopreal
-  </a>
+  <!-- LOGIN AWAL -->
+<div id="loginScreen">
+  <div class="container">
+    <h2 style="text-align:center;">LOGIN DATABASE</h2>
+    <input type="password" id="passwordLogin" placeholder="Masukkan password" />
+    <button id="loginBtn"><span>Login</span></button>
+  </div>
 </div>
-<div class="jam-wrapper">
-  <p id="clock" class="jam"></p>
-</div>
+
+  <!-- MUSIK DAN SUARA -->
+  <audio id="loginMusic" src="musik.mp3" loop preload="auto"></audio>
+  <audio id="notifSound" preload="auto"></audio>
+
+  <!-- STATUS NOTIF -->
+  <div id="clock-bar" class="jam-bar hidden"></div>
+  <div id="status" class="status-message hidden"></div>
+
+  <!-- HALAMAN UTAMA -->
+  <div class="container hidden" id="mainForm">
+    <div style="text-align: center; margin-top: 10px;">
+      <a href="https://youtube.com/@rikishopreal" target="_blank">
+        <div class="neon-yt">YT : RIKISHOPREAL</div>
+      </a>
+    </div>
     <h2>Tambah Nomor Akses</h2>
     <button onclick="togglePanduan()"><span>Lihat Panduan</span></button>
-    <div id="panduanBox" class="hidden" style="margin-bottom: 1rem; background: #0000; padding: 1rem; border-radius: 10px;">
+    <div id="panduanBox" class="hidden" style="margin-bottom: 1rem;">
       <h4>Panduan Penggunaan</h4>
       <ul>
         <li>Masukkan nomor dan password dengan benar.</li>
@@ -33,44 +49,110 @@
     <button onclick="tambahNomor()"><span>Tambah</span></button>
     <hr />
     <button onclick="toggleDaftarNomor()"><span>Lihat Daftar Nomor</span></button>
-    <textarea id="listUserArea" class="hidden" readonly style="width: 100%; height: 120px; border: 1px solid #ccc; border-radius: 10px; padding: 10px; font-family: sans-serif;"></textarea>
-<h3 style="margin-bottom: 4px; font-weight: bold;">DATA ANDA</h3>
-<textarea id="userPrivate" style="margin-top: 0;"></textarea>
+    <textarea id="listUserArea" class="hidden" readonly style="width: 100%; height: 120px;"></textarea>
+    <h3 style="margin-bottom: 4px; font-weight: bold;">DATA ANDA</h3>
+    <textarea id="userPrivate" style="margin-top: 0;"></textarea>
     <hr />
     <h2 style="margin-bottom: 4px; font-weight: bold;">AKSES ADMIN BOT</h2>
     <input type="password" id="adminPass" placeholder="Password Admin" />
     <button onclick="adminLogin()"><span>Login Admin</span></button>
-<div class="status hidden" id="status" style="position: fixed; top: 15px; left: 50%; transform: translateX(-50%); z-index: 999; transition: opacity 0.5s ease;"></div>
+    <div class="status hidden" id="status" style="position: fixed; top: 15px; left: 50%; transform: translateX(-50%); z-index: 999;"></div>
   </div>
+
   <p id="status" style="text-align:center; color:#00faff; margin-top:10px;"></p>
-</div>
+
   <div class="container hidden" id="adminPanel">
-<div style="text-align: center; margin-top: 10px;">
-  <a href="https://youtube.com/@rikishopreal" target="_blank" style="font-size: 18px; color: cyan; text-shadow: 0 0 8px cyan; text-decoration: underline; text-decoration-color: cyan; text-underline-offset: 4px;">
-    yt : rikishopreal
-  </a>
-</div>
-    <h1 style="text-align: center; font-size: 1.5rem; font-weight: bold;">AKSES ADMIN BOT</h1>
+    <div style="text-align: center; margin-top: 10px;">
+      <a href="https://youtube.com/@rikishopreal" target="_blank">
+        <div class="neon-yt">YT : RIKISHOPREAL</div>
+      </a>
+    </div>
+    <h1 style="text-align: center;">AKSES ADMIN BOT</h1>
     <button onclick="toggleBlacklist()"><span>Lihat Daftar Blacklist</span></button>
-     <div id="blacklistBox" class="hidden" style="margin-top: 1rem; background: #0000; padding: 1rem; border-radius: 10px;">
-  <h4>Nomor yang Diblacklist</h4>
-  <textarea id="blacklistArea" readonly style="width: 100%; height: 120px; border-radius: 10px; font-family: monospace;"></textarea>
-    <button onclick="hapusDariBlacklist()"><span>Hapus dari Blacklist</span></button>   
-     <select id="blacklistSelect" style="margin-top: 10px;"></select>
-</div>
+    <div id="blacklistBox" class="hidden">
+      <h4>Nomor yang Diblacklist</h4>
+      <textarea id="blacklistArea" readonly></textarea>
+      <button onclick="hapusDariBlacklist()"><span>Hapus dari Blacklist</span></button>
+      <select id="blacklistSelect" style="margin-top: 10px;"></select>
+    </div>
     <button onclick="lihatPengguna()"><span>Refresh Daftar</span></button>
-<textarea id="outputArea" readonly></textarea>
+    <textarea id="outputArea" readonly></textarea>
     <button onclick="hapusNomor()"><span>Hapus Nomor</span></button>
     <button onclick="blacklistNomor()"><span>Blacklist Nomor</span></button>
-     <select id="nomorSelect">
+    <select id="nomorSelect">
       <option value="">Pilih nomor...</option>
     </select>
     <button onclick="kembali(true)"><span>BCK</span></button>
-    <div class="status hidden" id="statusAdmin" style="position: fixed; top: 15px; left: 50%; transform: translateX(-50%); z-index: 999; transition: opacity 0.5s ease;"></div>
+    <div class="status hidden" id="statusAdmin"></div>
   </div>
-  
-  <audio id="notifSound" src="https://j.top4top.io/m_3389ao59k0.mp3" preload="auto"></audio>
-  
+
   <script src="main.js"></script>
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+      const bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+      const namaHari = hari[now.getDay()];
+      const tanggal = now.getDate();
+      const namaBulan = bulan[now.getMonth()];
+      const tahun = now.getFullYear();
+      const jam = now.toLocaleTimeString('id-ID', { hour12: false });
+
+      const fullWaktu = `${namaHari}, ${tanggal} ${namaBulan} ${tahun} - ${jam}`;
+      document.getElementById("clock-bar").textContent = fullWaktu;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // SHOW STATUS NOTIF
+    function showStatusLogin(message, type = 'success') {
+      const el = document.getElementById("status");
+      const sound = document.getElementById("notifSound");
+
+      if (type === 'success') {
+        sound.src = "benar.mp3";
+      } else {
+        sound.src = "salah.mp3";
+      }
+
+      el.innerText = message;
+      el.className = `status ${type}`;
+      el.classList.remove("hidden");
+      el.style.opacity = 1;
+
+      sound.currentTime = 0;
+      sound.play();
+
+      setTimeout(() => {
+        el.style.opacity = 0;
+        setTimeout(() => el.classList.add("hidden"), 500);
+      }, 3000);
+    }
+
+    // LOGIN SISTEM
+    document.addEventListener("DOMContentLoaded", function () {
+      const loginBtn = document.getElementById("loginBtn");
+      loginBtn.addEventListener("click", function () {
+        const pass = document.getElementById("passwordLogin").value;
+        const loginScreen = document.getElementById("loginScreen");
+        const mainForm = document.getElementById("mainForm");
+        const jamBar = document.getElementById("clock-bar");
+        const statusBar = document.getElementById("status");
+        const music = document.getElementById("loginMusic");
+
+        if (pass === "masuk123") {
+          loginScreen.classList.add("hidden");
+          mainForm.classList.remove("hidden");
+          jamBar.classList.remove("hidden");
+          statusBar.classList.remove("hidden");
+
+          music.play().catch(() => console.warn("Autoplay diblokir."));
+          showStatusLogin("Login berhasil!", "success");
+        } else {
+          showStatusLogin("Password salah!", "warning");
+        }
+      });
+    });
+  </script>
 </body>
 </html>
