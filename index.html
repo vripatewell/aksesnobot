@@ -102,28 +102,43 @@
 </div>
 
   </div>  <div class="tab-pane hidden" id="adminPanel">
-    <div style="text-align: center; margin-top: 10px;">
+<div style="text-align: center; margin-top: 10px;">
       <a href="https://youtube.com/@rikishopreal" target="_blank">
         <div class="neon-yt">YT : RIKISHOPREAL</div>
       </a>
     </div>
-    <h1 style="text-align: center;">AKSES ADMIN BOT</h1> <hr />
+    <h1 style="text-align: center;">AKSES ADMIN BOT</h1>
     <button onclick="toggleBlacklist()"><span>Lihat Daftar Blacklist</span></button>
     <div id="blacklistBox" class="hidden">
       <h4>Nomor yang Diblacklist</h4>
       <textarea id="blacklistArea" readonly style="background-color: rgba(0, 0, 0, 0.2); color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff;"></textarea>
       <button onclick="hapusDariBlacklist()"><span>Hapus dari Blacklist</span></button>
-      <select id="blacklistSelect" style="background-color: #000000; color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff;"></select>
+      <select id="blacklistSelect" style="
+  background-color: #000000;
+  color: #00ffff;
+  border: 1px solid #00ffff;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 15px #00ffff;
+"></select>
     </div>
     <button onclick="lihatPengguna()"><span>Refresh Daftar</span></button>
     <textarea id="outputArea" readonly></textarea>
     <button onclick="hapusNomor()"><span>Hapus Nomor</span></button>
     <button onclick="blacklistNomor()"><span>Blacklist Nomor</span></button>
-    <select id="nomorSelect" style="background-color: #000000; color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff;">
-      <option value="">Pilih nomor...</option>
-    </select>
+    <select id="nomorSelect" style="
+  background-color: #000000;
+  color: #00ffff;
+  border: 1px solid #00ffff;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 15px #00ffff;
+">
+  <option value="">Pilih nomor...</option>
+</select>
     <button onclick="kembali(true)"><span>BCK</span></button>
     <div class="status hidden" id="statusAdmin"></div>
+ 
   </div>  <script src="main.js"></script>  <script>
     function updateClock() {
       const now = new Date();
