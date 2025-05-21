@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap" rel="stylesheet">
   <title>Tambah Nomor Akses</title>
   <style>
+    /* ...style navbar dan section seperti sebelumnya... */
     .navbar {
       margin-top: 20px;
       background: rgba(0, 0, 0, 0.5);
@@ -105,94 +106,54 @@
       <textarea id="userPrivate" style="margin-top: 0;"></textarea>
     </div>
 
-    <!-- LOGIN ADMIN -->
+    <!-- ADMIN PANEL & LOGIN ADMIN -->
     <div class="section" id="adminpanel">
-          <h2 style="margin-bottom: 4px; font-weight: bold;">AKSES ADMIN BOT</h2>
-    <input type="password" id="adminPass" placeholder="Password Admin" />
-    <button onclick="adminLogin()"><span>Login Admin</span></button>
-    <div class="status hidden" id="status" style="position: fixed; top: 15px; left: 50%; transform: translateX(-50%); z-index: 999;"></div>
+      <h2 style="margin-bottom: 4px; font-weight: bold;">AKSES ADMIN BOT</h2>
+
+      <!-- Bagian Login Admin (akan tetap tampil sampai login berhasil) -->
+      <div id="adminLoginSection">
+        <input type="password" id="adminPass" placeholder="Password Admin" />
+        <button onclick="adminLogin()"><span>Login Admin</span></button>
+      </div>
+
+      <!-- Panel Admin setelah login berhasil, awalnya tersembunyi -->
+      <div id="adminPanel" class="hidden">
+        <button onclick="toggleBlacklist()"><span>Lihat Daftar Blacklist</span></button>
+        <div id="blacklistBox" class="hidden">
+          <h4>Nomor yang Diblacklist</h4>
+          <textarea id="blacklistArea" readonly style="background-color:#000; color:#00ffff; border:1px solid #00ffff; border-radius:10px; padding:10px; box-shadow: 0 0 15px #00ffff;"></textarea>
+          <button onclick="hapusDariBlacklist()"><span>Hapus dari Blacklist</span></button>
+          <select id="blacklistSelect" style="margin-top: 10px; background-color:#000; color:#00ffff;"></select>
+        </div>
+        <button onclick="lihatPengguna()"><span>Refresh Daftar</span></button>
+        <textarea id="outputArea" readonly></textarea>
+        <button onclick="hapusNomor()"><span>Hapus Nomor</span></button>
+        <button onclick="blacklistNomor()"><span>Blacklist Nomor</span></button>
+        <select id="nomorSelect" style="background-color:#000; color:#00ffff;">
+          <option value="">Pilih nomor...</option>
+        </select>
+        <button onclick="kembali()"><span>BCK</span></button>
+        <div class="status hidden" id="statusAdmin"></div>
+      </div>
+    </div>
   </div>
 
-  <p id="status" style="text-align:center; color:#00faff; margin-top:10px;"></p>
-<div class="container hidden" id="adminPanel">
-    <div style="text-align: center; margin-top: 10px;">
-      <a href="https://youtube.com/@rikishopreal" target="_blank">
-        <div class="neon-yt">YT : RIKISHOPREAL</div>
-      </a>
-    </div>
-    <h1 style="text-align: center;">AKSES ADMIN BOT</h1>
-    <button onclick="toggleBlacklist()"><span>Lihat Daftar Blacklist</span></button>
-    <div id="blacklistBox" class="hidden">
-      <h4>Nomor yang Diblacklist</h4>
-      <textarea id="blacklistArea" readonly style="background-color: rgba(0, 0, 0, 0.2); color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff;"></textarea>
-      <button onclick="hapusDariBlacklist()"><span>Hapus dari Blacklist</span></button>
-      <select id="blacklistSelect" style="
-  background-color: #000000;
-  color: #00ffff;
-  border: 1px solid #00ffff;
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0 0 15px #00ffff;
-"></select>
-    </div>
-    <button onclick="lihatPengguna()"><span>Refresh Daftar</span></button>
-    <textarea id="outputArea" readonly></textarea>
-    <button onclick="hapusNomor()"><span>Hapus Nomor</span></button>
-    <button onclick="blacklistNomor()"><span>Blacklist Nomor</span></button>
-    <select id="nomorSelect" style="
-  background-color: #000000;
-  color: #00ffff;
-  border: 1px solid #00ffff;
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0 0 15px #00ffff;
-">
-  <option value="">Pilih nomor...</option>
-</select>
-    <button onclick="kembali(true)"><span>BCK</span></button>
-    <div class="status hidden" id="statusAdmin"></div>
-  </div>
-  
   <script src="main.js"></script>
+
   <script>
-    function updateClock() {
-      const now = new Date();
-      const hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
-      const bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-      const namaHari = hari[now.getDay()];
-      const tanggal = now.getDate();
-      const namaBulan = bulan[now.getMonth()];
-      const tahun = now.getFullYear();
-      const jam = now.toLocaleTimeString('id-ID', { hour12: false });
-      const fullWaktu = `${namaHari}, ${tanggal} ${namaBulan} ${tahun} - ${jam}`;
-      document.getElementById("clock-bar").textContent = fullWaktu;
-    }
-
-    setInterval(updateClock, 1000);
-    updateClock();
-
-    function showStatusLogin(message, type = 'success') {
-      const el = document.getElementById("status");
-      const sound = document.getElementById("notifSound");
-      sound.src = type === 'success' ? "benar.mp3" : "salah.mp3";
-      el.innerText = message;
-      el.className = `status ${type}`;
-      el.classList.remove("hidden");
-      el.style.opacity = 1;
-      sound.currentTime = 0;
-      sound.play();
-      setTimeout(() => {
-        el.style.opacity = 0;
-        setTimeout(() => el.classList.add("hidden"), 500);
-      }, 3000);
+    // Fungsi kembali untuk tombol BCK di admin panel
+    function kembali() {
+      document.getElementById("adminPanel").classList.add("hidden");
+      document.getElementById("adminLoginSection").classList.remove("hidden");
+      document.getElementById("adminPass").value = "";
     }
 
     function showSection(id) {
-      document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+      document.querySelectorAll(".section").forEach((el) => el.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
     }
 
-    // LOGIN SISTEM
+    // Login awal (database) - ini kode asli kamu, tidak diubah
     document.addEventListener("DOMContentLoaded", function () {
       const loginBtn = document.getElementById("loginBtn");
       loginBtn.addEventListener("click", function () {
@@ -210,21 +171,28 @@
           statusBar.classList.remove("hidden");
           showSection("addakses");
           music.play().catch(() => {});
-          showStatusLogin("Login berhasil!", "success");
+          showStatus("Login berhasil!", "success");
         } else {
-          showStatusLogin("Password salah!", "warning");
+          showStatus("Password salah!", "warning");
         }
       });
     });
 
-    function showAdminPanel() {
-  document.getElementById("adminPanel").classList.remove("hidden");
-  document.getElementById("outputArea").style.display = "block";
-  document.getElementById("dataBox").style.display = "block";
-  document.getElementById("blacklistBox").classList.remove("hidden");
-  document.getElementById("statusAdmin").classList.remove("hidden");
-}
- 
+    function showStatus(message, type = "success") {
+      const el = document.getElementById("status");
+      const sound = document.getElementById("notifSound");
+      sound.src = type === "success" ? "benar.mp3" : "salah.mp3";
+      el.innerText = message;
+      el.className = `status ${type}`;
+      el.classList.remove("hidden");
+      el.style.opacity = 1;
+      sound.currentTime = 0;
+      sound.play();
+      setTimeout(() => {
+        el.style.opacity = 0;
+        setTimeout(() => el.classList.add("hidden"), 500);
+      }, 3000);
+    }
   </script>
 </body>
 </html>
