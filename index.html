@@ -71,9 +71,16 @@
     <button onclick="toggleBlacklist()"><span>Lihat Daftar Blacklist</span></button>
     <div id="blacklistBox" class="hidden">
       <h4>Nomor yang Diblacklist</h4>
-      <textarea id="blacklistArea" readonly style="background-color: rgba(0, 0, 0, 0.2); color: #000000; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff;"></textarea>
+      <textarea id="blacklistArea" readonly style="background-color: rgba(0, 0, 0, 0.2); color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff;"></textarea>
       <button onclick="hapusDariBlacklist()"><span>Hapus dari Blacklist</span></button>
-      <select id="blacklistSelect" style="margin-top: 10px;"></select>
+      <textarea id="blacklistArea" readonly style="
+  background-color: #000000;
+  color: #00ffff;
+  border: 1px solid #00ffff;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 15px #00ffff;
+"></textarea>
     </div>
     <button onclick="lihatPengguna()"><span>Refresh Daftar</span></button>
     <textarea id="outputArea" readonly></textarea>
