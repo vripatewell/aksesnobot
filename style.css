@@ -3,7 +3,7 @@
   transition: all 0.3s ease-in-out;
   font-family: 'Outfit', sans-serif !important;
   color: #00ffff;
-  text-shadow: 0 0 5px white, 0 0 10px white;
+  text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
   box-sizing: border-box;
 }
 
