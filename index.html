@@ -90,14 +90,18 @@
     <textarea id="listUserArea" class="hidden" readonly style="width: 100%; height: 120px;"></textarea>
   </div>
 
-  <div id="adminPanel" class="tab-pane hidden">
+  <div id="adminLogin" class="tab-pane hidden">
     <h2 style="margin-bottom: 4px; font-weight: bold;">AKSES ADMIN BOT</h2>   <hr />
     <input type="password" id="adminPass" placeholder="Password Admin" />
     <button onclick="adminLogin()"><span>Login Admin</span></button>
+    <div class="status hidden" id="status" style="position: fixed; top: 15px; left: 50%; transform: translateX(-50%); z-index: 999;"></div>
+  </div>
+
+  <p id="status" style="text-align:center; color:#00faff; margin-top:10px;"></p>
   </div>
 </div>
 
-  </div>  <div class="tab-pane hidden" id="adminLogin">
+  </div>  <div class="tab-pane hidden" id="adminPanel">
     <div style="text-align: center; margin-top: 10px;">
       <a href="https://youtube.com/@rikishopreal" target="_blank">
         <div class="neon-yt">YT : RIKISHOPREAL</div>
