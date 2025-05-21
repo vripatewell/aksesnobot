@@ -112,25 +112,23 @@
       <button onclick="adminLogin()"><span>Login Admin</span></button>
 
       <!-- Panel Admin Sebenarnya -->
-      <div class="hidden" id="adminPanel">
-        <button onclick="toggleBlacklist()"><span>Lihat Daftar Blacklist</span></button>
-        <div id="blacklistBox" class="hidden">
-          <h4>Nomor yang Diblacklist</h4>
-          <textarea id="blacklistArea" readonly style="background-color:#000; color:#00ffff; border:1px solid #00ffff; border-radius:10px; padding:10px; box-shadow: 0 0 15px #00ffff;"></textarea>
-          <button onclick="hapusDariBlacklist()"><span>Hapus dari Blacklist</span></button>
-          <select id="blacklistSelect" style="margin-top: 10px; background-color:#000; color:#00ffff;"></select>
-        </div>
-        <button onclick="lihatPengguna()"><span>Refresh Daftar</span></button>
-        <textarea id="outputArea" readonly></textarea>
-        <button onclick="hapusNomor()"><span>Hapus Nomor</span></button>
-        <button onclick="blacklistNomor()"><span>Blacklist Nomor</span></button>
-        <select id="nomorSelect" style="background-color:#000; color:#00ffff;">
-          <option value="">Pilih nomor...</option>
-        </select>
-        <button onclick="kembali(true)"><span>BCK</span></button>
-        <div class="status hidden" id="statusAdmin"></div>
-      </div>
-    </div>
+          <h1 style="text-align: center; font-size: 1.5rem; font-weight: bold;">AKSES ADMIN BOT</h1>
+    <button onclick="toggleBlacklist()"><span>Lihat Daftar Blacklist</span></button>
+     <div id="blacklistBox" class="hidden" style="margin-top: 1rem; background: #0000; padding: 1rem; border-radius: 10px;">
+  <h4>Nomor yang Diblacklist</h4>
+  <textarea id="blacklistArea" readonly style="width: 100%; height: 120px; border-radius: 10px; font-family: monospace;"></textarea>
+    <button onclick="hapusDariBlacklist()"><span>Hapus dari Blacklist</span></button>   
+     <select id="blacklistSelect" style="margin-top: 10px;"></select>
+</div>
+    <button onclick="lihatPengguna()"><span>Refresh Daftar</span></button>
+<textarea id="outputArea" readonly></textarea>
+    <button onclick="hapusNomor()"><span>Hapus Nomor</span></button>
+    <button onclick="blacklistNomor()"><span>Blacklist Nomor</span></button>
+     <select id="nomorSelect">
+      <option value="">Pilih nomor...</option>
+    </select>
+    <button onclick="kembali(true)"><span>BCK</span></button>
+    <div class="status hidden" id="statusAdmin" style="position: fixed; top: 15px; left: 50%; transform: translateX(-50%); z-index: 999; transition: opacity 0.5s ease;"></div>
   </div>
 
   <script src="main.js"></script>
