@@ -107,10 +107,10 @@
 
     <!-- LOGIN ADMIN -->
     <div class="section" id="adminpanel">
-      <h2 style="margin-bottom: 4px; font-weight: bold;">AKSES ADMIN BOT</h2>
-      <input type="password" id="adminPass" placeholder="Password Admin" />
-      <button onclick="adminLogin()"><span>Login Admin</span></button>
-       <div class="status hidden" id="status" style="position: fixed; top: 15px; left: 50%; transform: translateX(-50%); z-index: 999;"></div>
+          <h2 style="margin-bottom: 4px; font-weight: bold;">AKSES ADMIN BOT</h2>
+    <input type="password" id="adminPass" placeholder="Password Admin" />
+    <button onclick="adminLogin()"><span>Login Admin</span></button>
+    <div class="status hidden" id="status" style="position: fixed; top: 15px; left: 50%; transform: translateX(-50%); z-index: 999;"></div>
   </div>
 
   <p id="status" style="text-align:center; color:#00faff; margin-top:10px;"></p>
@@ -121,6 +121,7 @@
         <div class="neon-yt">YT : RIKISHOPREAL</div>
       </a>
     </div>
+    <div class="container hidden" id="adminPanel">
     <h1 style="text-align: center;">AKSES ADMIN BOT</h1>
     <button onclick="toggleBlacklist()"><span>Lihat Daftar Blacklist</span></button>
     <div id="blacklistBox" class="hidden">
@@ -153,8 +154,6 @@
     <button onclick="kembali(true)"><span>BCK</span></button>
     <div class="status hidden" id="statusAdmin"></div>
   </div>
-  </div>
-</div>
   
   <script src="main.js"></script>
   <script>
