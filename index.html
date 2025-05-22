@@ -5,42 +5,6 @@
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap" rel="stylesheet">
   <title>Tambah Nomor Akses</title>
-  <style>
-     .navbar {
-      margin-top: 20px;
-      background: rgba(0, 0, 0, 0.5);
-      padding: 12px;
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px #00ffff50;
-    }
-
-    .navbar button {
-      background: transparent;
-      color: #00ffff;
-      border: 1px solid #00ffff;
-      padding: 8px 16px;
-      border-radius: 10px;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 0 8px #00ffff;
-      transition: 0.3s ease;
-    }
-
-    .navbar button:hover {
-      background: rgba(0, 255, 255, 0.1);
-    }
-
-    .section {
-      display: none;
-    }
-
-    .section.active {
-      display: block;
-    }
-  </style>
 </head>
 <body>
   <!-- LOGIN AWAL -->
@@ -94,12 +58,9 @@
   <div id="listNomor" class="tab-pane hidden">
     <h3 style="margin-bottom: 4px; font-weight: bold;">DATA ANDA</h3>   <hr />
     <textarea id="userPrivate" style="margin-top: 0;"></textarea>
+     <input type="text" id="searchInput" placeholder="Cari nomor..." oninput="pencarianRealtime()" style="margin: 10px 0; width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #00ffff; background: #000; color: #00ffff;" />
+<div id="hasilPencarian" style="background-color: rgba(0,0,0,0.3); color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff; min-height: 80px;"></div>
     <button onclick="toggleDaftarNomor()"><span>Lihat Daftar Nomor</span></button>
-    
-<div style="display: flex; gap: 10px; align-items: center; margin: 10px 0;">
-  <input type="text" id="searchInput" placeholder="Cari nomor..." style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid #00ffff; background: #000; color: #00ffff;" />
-  <button onclick="cariNomor()" style="background: none; border: none; cursor: pointer; font-size: 22px; color: #00ffff;">🔍</button>
-</div>
 <div id="hasilPencarian" style="color: #00ffff; margin-bottom: 10px;"></div>
     <textarea id="listUserArea" class="hidden" readonly style="width: 100%; height: 120px;"></textarea>
   </div>
@@ -139,12 +100,10 @@
         </div>
 
         <button onclick="lihatPengguna()"><span>Refresh Daftar</span></button>
-        <div style="display: flex; gap: 10px; align-items: center; margin: 10px 0;">
-  <input type="text" id="searchInput" placeholder="Cari nomor..." style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid #00ffff; background: #000; color: #00ffff;" />
-  <button onclick="cariNomor()" style="background: none; border: none; cursor: pointer; font-size: 22px; color: #00ffff;">🔍</button>
-</div>
 <div id="hasilPencarian" style="color: #00ffff; margin-bottom: 10px;"></div>
         <textarea id="outputArea" readonly></textarea>
+        <input type="text" id="adminSearchInput" placeholder="Cari nomor (Admin)..." oninput="pencarianAdminRealtime()" style="margin: 10px 0; width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #00ffff; background: #000; color: #00ffff;" />
+<div id="adminSearchResult" style="background-color: rgba(0,0,0,0.3); color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff; min-height: 80px;"></div>
         <button onclick="hapusNomor()"><span>Hapus Nomor</span></button>
         <button onclick="blacklistNomor()"><span>Blacklist Nomor</span></button>
         <select id="nomorSelect" style="background-color: #000000; color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff;">
@@ -155,101 +114,6 @@
     </div>
   </div>
 </div>
-  </div>  <script src="main.js"></script>  <script>
-    function updateClock() {
-      const now = new Date();
-      const hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
-      const bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-      const namaHari = hari[now.getDay()];
-      const tanggal = now.getDate();
-      const namaBulan = bulan[now.getMonth()];
-      const tahun = now.getFullYear();
-      const jam = now.toLocaleTimeString('id-ID', { hour12: false });
-
-      const fullWaktu = `${namaHari}, ${tanggal} ${namaBulan} ${tahun} - ${jam}`;
-      document.getElementById("clock-bar").textContent = fullWaktu;
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
-    
-    function showStatusLogin(message, type = 'success') {
-  const el = document.getElementById("status");
-  const sound = document.getElementById("notifSound");
-
-  sound.src = type === 'success' ? "benar.mp3" : "salah.mp3";
-  el.innerText = message;
-  el.className = `status ${type}`;
-  el.classList.remove("hidden");
-  el.style.opacity = 1;
-
-  sound.currentTime = 0;
-  sound.play();
-
-  setTimeout(() => {
-    el.style.opacity = 0;
-    setTimeout(() => el.classList.add("hidden"), 500);
-  }, 3000);
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("loginBtn").addEventListener("click", function () {
-    const pass = document.getElementById("passwordLogin").value.trim();
-
-    if (pass === "") {
-      showStatusLogin("Password belum diisi!", "error");
-    } else if (pass === "masuk123") {
-      document.getElementById("loginScreen").classList.add("hidden");
-      document.getElementById("mainForm").classList.remove("hidden");
-      document.getElementById("clock-bar").classList.remove("hidden");
-      document.getElementById("status").classList.remove("hidden");
-      document.getElementById("loginMusic").play().catch(() => console.warn("Autoplay diblokir."));
-      showStatusLogin("Login berhasil!", "success");
-    } else {
-      showStatusLogin("Password salah!", "error");
-    }
-  });
-});
-
-    function showTab(tabId) {
-      const tabs = document.querySelectorAll(".tab-pane");
-      tabs.forEach(tab => tab.classList.add("hidden"));
-      document.getElementById(tabId).classList.remove("hidden");
-      const buttons = document.querySelectorAll(".nav-tabs button");
-      buttons.forEach(btn => btn.classList.remove("active"));
-      event.target.classList.add("active");
-    }
-   
-  function togglePassword(inputId, icon) {
-    const input = document.getElementById(inputId);
-    if (input.type === "password") {
-      input.type = "text";
-      icon.textContent = "🙈";
-    } else {
-      input.type = "password";
-      icon.textContent = "👁️";
-    }
-  }
-  
-function cariNomor() {
-  const query = document.getElementById("searchInput").value.trim();
-  const area = document.getElementById("outputArea");
-  const hasil = document.getElementById("hasilPencarian");
-
-  if (!query) {
-    hasil.textContent = "Masukkan nomor yang ingin dicari.";
-    return;
-  }
-
-  const lines = area.value.split('\n').filter(line => line.trim() !== '');
-  const ditemukan = lines.find(line => line.includes(query));
-
-  if (ditemukan) {
-    hasil.textContent = "Nomor ditemukan:\n" + ditemukan;
-    area.value = ditemukan;
-  } else {
-    hasil.textContent = "Nomor tidak terdaftar di database.";
-    area.value = '';
-  }
-}
-  </script></body>
+  </div>  <script src="main.js"></script>
+  </body>
 </html>

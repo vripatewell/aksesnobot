@@ -321,6 +321,125 @@ async function blacklistNomor() {
     const box = document.getElementById("dataBox");
     box.style.display = box.style.display === "none" ? "block" : "none";
   }
+  
+  function updateClock() {
+      const now = new Date();
+      const hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+      const bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+      const namaHari = hari[now.getDay()];
+      const tanggal = now.getDate();
+      const namaBulan = bulan[now.getMonth()];
+      const tahun = now.getFullYear();
+      const jam = now.toLocaleTimeString('id-ID', { hour12: false });
+
+      const fullWaktu = `${namaHari}, ${tanggal} ${namaBulan} ${tahun} - ${jam}`;
+      document.getElementById("clock-bar").textContent = fullWaktu;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+    
+    function showStatusLogin(message, type = 'success') {
+  const el = document.getElementById("status");
+  const sound = document.getElementById("notifSound");
+
+  sound.src = type === 'success' ? "benar.mp3" : "salah.mp3";
+  el.innerText = message;
+  el.className = `status ${type}`;
+  el.classList.remove("hidden");
+  el.style.opacity = 1;
+
+  sound.currentTime = 0;
+  sound.play();
+
+  setTimeout(() => {
+    el.style.opacity = 0;
+    setTimeout(() => el.classList.add("hidden"), 500);
+  }, 3000);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("loginBtn").addEventListener("click", function () {
+    const pass = document.getElementById("passwordLogin").value.trim();
+
+    if (pass === "") {
+      showStatusLogin("Password belum diisi!", "error");
+    } else if (pass === "masuk123") {
+      document.getElementById("loginScreen").classList.add("hidden");
+      document.getElementById("mainForm").classList.remove("hidden");
+      document.getElementById("clock-bar").classList.remove("hidden");
+      document.getElementById("status").classList.remove("hidden");
+      document.getElementById("loginMusic").play().catch(() => console.warn("Autoplay diblokir."));
+      showStatusLogin("Login berhasil!", "success");
+    } else {
+      showStatusLogin("Password salah!", "error");
+    }
+  });
+});
+
+    function showTab(tabId) {
+      const tabs = document.querySelectorAll(".tab-pane");
+      tabs.forEach(tab => tab.classList.add("hidden"));
+      document.getElementById(tabId).classList.remove("hidden");
+      const buttons = document.querySelectorAll(".nav-tabs button");
+      buttons.forEach(btn => btn.classList.remove("active"));
+      event.target.classList.add("active");
+    }
+   
+  function togglePassword(inputId, icon) {
+    const input = document.getElementById(inputId);
+    if (input.type === "password") {
+      input.type = "text";
+      icon.textContent = "🙈";
+    } else {
+      input.type = "password";
+      icon.textContent = "👁️";
+    }
+  }
+  
+  let semuaNomor = [];
+
+function lihatPengguna() {
+  // Misal kamu ambil data dari GitHub atau lainnya
+  // Setelah data dimuat, simpan ke semuaNomor
+  semuaNomor = document.getElementById("outputArea").value.split('\n').filter(line => line.trim() !== '');
+}
+
+function pencarianRealtime() {
+  const input = document.getElementById("searchInput").value.toLowerCase();
+  const hasilDiv = document.getElementById("hasilPencarian");
+
+  if (input === "") {
+    hasilDiv.innerHTML = "<i>Silakan ketik untuk mencari nomor...</i>";
+    return;
+  }
+
+  const hasil = semuaNomor.filter(nomor => nomor.toLowerCase().includes(input));
+
+  if (hasil.length > 0) {
+    hasilDiv.innerHTML = hasil.map(n => `<div>${n}</div>`).join('');
+  } else {
+    hasilDiv.innerHTML = "<b>Nomor tidak terdaftar di database.</b>";
+  }
+}
+
+function pencarianAdminRealtime() {
+  const input = document.getElementById("adminSearchInput").value.toLowerCase();
+  const semuaData = document.getElementById("outputArea").value.split('\n');
+  const hasilDiv = document.getElementById("adminSearchResult");
+
+  if (input === "") {
+    hasilDiv.innerHTML = "<i>Silakan ketik untuk mencari nomor...</i>";
+    return;
+  }
+
+  const hasil = semuaData.filter(nomor => nomor.toLowerCase().includes(input));
+
+  if (hasil.length > 0) {
+    hasilDiv.innerHTML = hasil.map(n => `<div>${n}</div>`).join('');
+  } else {
+    hasilDiv.innerHTML = "<b>Nomor tidak terdaftar di database.</b>";
+  }
+}
 
 updateBlacklistArea(); // tambahkan ini
 updateOutputList();
