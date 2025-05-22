@@ -387,3 +387,18 @@ textarea {
   z-index: -1;
   border-radius: 22px;
 }
+
+#statusAdmin {
+  position: fixed;
+  top: 60px; /* tepat di bawah jam */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #00ffff;
+  padding: 10px 20px;
+  border: 1px solid #00ffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #00ffff;
+  transition: opacity 0.5s;
+}
