@@ -93,12 +93,17 @@
 
   <div id="listNomor" class="tab-pane hidden">
     <h3 style="margin-bottom: 4px; font-weight: bold;">DATA ANDA</h3>   <hr />
-    <input type="text" id="searchNomor" placeholder="Cari nomor (mis. +628xxxx)" style="width: 100%; padding: 10px; margin-top: 10px; border-radius: 8px; border: 1px solid #00ffff; background: #000; color: #00ffff;">
-<button onclick="cariNomor()" style="margin-top: 5px;"><span>Cari Nomor</span></button>
-<div id="hasilPencarian" style="margin-top: 10px; color: #00ffff;"></div>
     <textarea id="userPrivate" style="margin-top: 0;"></textarea>
     <button onclick="toggleDaftarNomor()"><span>Lihat Daftar Nomor</span></button>
     
+<div style="display: flex; gap: 10px; align-items: center; margin: 10px 0;">
+  <input type="text" id="searchInput" placeholder="Cari nomor..." style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid #00ffff; background: #000; color: #00ffff;" />
+  <button onclick="cariNomor()" style="background: none; border: none; cursor: pointer; font-size: 22px; color: #00ffff;">🔍</button>
+</div>
+<div id="hasilPencarian" style="color: #00ffff; margin-bottom: 10px;"></div>
+    <textarea id="listUserArea" class="hidden" readonly style="width: 100%; height: 120px;"></textarea>
+  </div>
+
   <div id="adminLogin" class="tab-pane hidden">
     <h2 style="margin-bottom: 4px; font-weight: bold;">AKSES ADMIN BOT</h2>   <hr />
     <div style="position: relative;">
@@ -134,9 +139,11 @@
         </div>
 
         <button onclick="lihatPengguna()"><span>Refresh Daftar</span></button>
-        <input type="text" id="searchNomor" placeholder="Cari nomor (mis. +628xxxx)" style="width: 100%; padding: 10px; margin-top: 10px; border-radius: 8px; border: 1px solid #00ffff; background: #000; color: #00ffff;">
-<button onclick="cariNomor()" style="margin-top: 5px;"><span>Cari Nomor</span></button>
-<div id="hasilPencarian" style="margin-top: 10px; color: #00ffff;"></div>
+        <div style="display: flex; gap: 10px; align-items: center; margin: 10px 0;">
+  <input type="text" id="searchInput" placeholder="Cari nomor..." style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid #00ffff; background: #000; color: #00ffff;" />
+  <button onclick="cariNomor()" style="background: none; border: none; cursor: pointer; font-size: 22px; color: #00ffff;">🔍</button>
+</div>
+<div id="hasilPencarian" style="color: #00ffff; margin-bottom: 10px;"></div>
         <textarea id="outputArea" readonly></textarea>
         <button onclick="hapusNomor()"><span>Hapus Nomor</span></button>
         <button onclick="blacklistNomor()"><span>Blacklist Nomor</span></button>
@@ -223,23 +230,25 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
   
-  function cariNomor() {
-  const input = document.getElementById("searchNomor").value.trim();
-  const outputArea = document.getElementById("outputArea").value;
+function cariNomor() {
+  const query = document.getElementById("searchInput").value.trim();
+  const area = document.getElementById("outputArea");
   const hasil = document.getElementById("hasilPencarian");
 
-  if (!input) {
-    hasil.textContent = "Silakan masukkan nomor yang ingin dicari.";
+  if (!query) {
+    hasil.textContent = "Masukkan nomor yang ingin dicari.";
     return;
   }
 
-  const daftar = outputArea.split("\n").filter(line => line.trim() !== "");
-  const ditemukan = daftar.find(line => line.includes(input));
+  const lines = area.value.split('\n').filter(line => line.trim() !== '');
+  const ditemukan = lines.find(line => line.includes(query));
 
   if (ditemukan) {
     hasil.textContent = "Nomor ditemukan:\n" + ditemukan;
+    area.value = ditemukan;
   } else {
     hasil.textContent = "Nomor tidak terdaftar di database.";
+    area.value = '';
   }
 }
   </script></body>
