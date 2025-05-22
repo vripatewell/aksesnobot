@@ -219,5 +219,24 @@ document.addEventListener("DOMContentLoaded", function () {
       icon.textContent = "👁️";
     }
   }
+
+    function showStatusAdmin(message, type = 'success') {
+  const el = document.getElementById("statusAdmin");
+  const sound = document.getElementById("notifSound");
+
+  sound.src = type === 'success' ? "benar.mp3" : "salah.mp3";
+  el.innerText = message;
+  el.className = `status ${type}`;
+  el.classList.remove("hidden");
+  el.style.opacity = 1;
+
+  sound.currentTime = 0;
+  sound.play();
+
+  setTimeout(() => {
+    el.style.opacity = 0;
+    setTimeout(() => el.classList.add("hidden"), 500);
+  }, 3000);
+}
   </script></body>
 </html>
