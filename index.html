@@ -34,31 +34,39 @@
 <div class="navbar">
       <button onclick="showTab('addAkses')">Add Akses</button>
       <button onclick="showTab('listNomor')">List Nomor</button>
-      <button onclick="showTab('adminLogin')">Admin Panel</button>
+      <button onclick="showTab('adminLogin')">Admin Login</button>
     </div>
 
 <div class="tab-content">
   <div id="addAkses" class="tab-pane">
     <h2>Tambah Nomor Akses</h2><hr />
-    <button onclick="togglePanduan()"><span>Lihat Panduan</span></button>
-    <div id="panduanBox" class="hidden" style="margin-bottom: 1rem;">
-      <h4>Panduan Penggunaan</h4>
-      <ul>
-        <li>Masukkan nomor dan password dengan benar.</li>
-        <li>Nomor yang diblacklist tidak bisa ditambahkan kembali.</li>
-        <li>Gunakan format nomor: +62xxxxxxxxxxx.</li>
-        <li>Admin dapat mengelola daftar nomor melalui login admin.</li>
-      </ul>
-    </div>
+   <button onclick="togglePanduan()" style="margin-bottom: 10px; padding: 10px 20px; background-color: #000; color: #00ffff; border: 1px solid #00ffff; border-radius: 8px; cursor: pointer; box-shadow: 0 0 10px #00ffff;">
+  <span>Lihat Panduan</span>
+</button>
+
+<div id="panduanBox" class="hidden" style="margin-bottom: 1rem; background-color: rgba(0, 0, 0, 0.3); padding: 15px; border-radius: 10px; border: 1px solid #00ffff; box-shadow: 0 0 10px #00ffff; color: #00ffff;">
+  <h4 style="margin-top: 0; font-weight: bold; font-size: 18px; border-bottom: 1px solid #00ffff; padding-bottom: 5px; text-align: center;">
+    Panduan Penggunaan
+  </h4>
+  <ul style="list-style-type: square; padding-left: 20px; margin: 10px 0; text-align: left;">
+    <li style="margin-bottom: 8px;">Masukkan nomor dan password dengan benar.</li>
+    <li style="margin-bottom: 8px;">Nomor yang diblacklist tidak bisa ditambahkan kembali.</li>
+    <li style="margin-bottom: 8px;">Gunakan format nomor: <code>+62xxxxxxxxxxx</code>.</li>
+    <li style="margin-bottom: 8px;">Admin dapat mengelola daftar nomor melalui login admin.</li>
+  </ul>
+</div>
     <input type="text" id="nomor" placeholder="Masukkan Nomor" />
     <input type="text" id="password" placeholder="Masukkan Password" />
     <button onclick="tambahNomor()"><span>Tambah</span></button>
-    <h3 style="margin-bottom: 4px; font-weight: bold;">DATA ANDA</h3>   <hr />
-    <textarea id="userPrivate" style="margin-top: 0;"></textarea>
-  </div>
+<hr />
+  <button style="margin-bottom: 4px; font-weight: bold; cursor: pointer;" onclick="toggleUserData()"><span>DATA ANDA</span></button>
+<div id="userDataContainer" style="display: none;">
+  <textarea id="userPrivate" style="margin-top: 0;"></textarea>
+</div>
+</div>
 
   <div id="listNomor" class="tab-pane hidden">
-    <h3 style="margin-bottom: 4px; font-weight: bold;">List Nomor</h3>   <hr />
+    <h2 style="margin-bottom: 4px; font-weight: bold;">LIST NOMOR</h2>   <hr />
 <input type="text" id="userSearchInput" placeholder="Cari nomor kamu..." oninput="pencarianUserRealtime()" style="margin: 10px 0; width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #00ffff; background: #000; color: #00ffff;" />
 
 <div id="userSearchResult" style="background-color: rgba(0,0,0,0.3); color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff; min-height: 80px;"></div>
@@ -100,11 +108,11 @@
           <select id="blacklistSelect" style="background-color: #000000; color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff;"></select>
         </div>
 
-        <button onclick="lihatPengguna()"><span>Refresh Daftar</span></button>
-<div id="hasilPencarian" style="color: #00ffff; margin-bottom: 10px;"></div>
-        <textarea id="outputArea" readonly></textarea>
         <input type="text" id="adminSearchInput" placeholder="Cari nomor (Admin)..." oninput="pencarianAdminRealtime()" style="margin: 10px 0; width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #00ffff; background: #000; color: #00ffff;" />
 <div id="adminSearchResult" style="background-color: rgba(0,0,0,0.3); color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff; min-height: 80px;"></div>
+
+        <button onclick="lihatPengguna()"><span>Refresh Daftar</span></button>
+        <textarea id="outputArea" readonly></textarea>
         <button onclick="hapusNomor()"><span>Hapus Nomor</span></button>
         <button onclick="blacklistNomor()"><span>Blacklist Nomor</span></button>
         <select id="nomorSelect" style="background-color: #000000; color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff;">

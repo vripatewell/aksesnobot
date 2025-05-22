@@ -322,6 +322,15 @@ async function blacklistNomor() {
     box.style.display = box.style.display === "none" ? "block" : "none";
   }
   
+  function toggleUserData() {
+  const container = document.getElementById("userDataContainer");
+  if (container.style.display === "none") {
+    container.style.display = "block";
+  } else {
+    container.style.display = "none";
+  }
+}
+  
   function updateClock() {
       const now = new Date();
       const hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
@@ -431,6 +440,15 @@ function pencarianAdminRealtime() {
     hasilDiv.innerHTML = hasil.map(n => `<div>${n}</div>`).join('');
   } else {
     hasilDiv.innerHTML = "<b>Nomor tidak terdaftar di database.</b>";
+  }
+}
+
+function toggleUserData() {
+  const container = document.getElementById("userDataContainer");
+  if (container.style.display === "none") {
+    container.style.display = "block";
+  } else {
+    container.style.display = "none";
   }
 }
 
