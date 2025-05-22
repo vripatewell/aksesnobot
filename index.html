@@ -95,6 +95,8 @@
     <h3 style="margin-bottom: 4px; font-weight: bold;">DATA ANDA</h3>   <hr />
     <textarea id="userPrivate" style="margin-top: 0;"></textarea>
     <button onclick="toggleDaftarNomor()"><span>Lihat Daftar Nomor</span></button>
+    
+    <input type="text" id="searchInput" placeholder="Cari nomor..." oninput="filterNomor()" style="margin: 10px 0; width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #00ffff; background: #000; color: #00ffff;" />
     <textarea id="listUserArea" class="hidden" readonly style="width: 100%; height: 120px;"></textarea>
   </div>
 
@@ -113,10 +115,9 @@
 </div>
 </div>
 
-  
+  <div class="status hidden" id="statusAdmin"></div>
   </div>   <div id="adminPanel" class="tab-pane hidden">
       <div class="container">
-        <div class="status hidden" id="statusAdmin"></div>
         <div style="text-align: center; margin-top: 10px;">
           <a href="https://youtube.com/@rikishopreal" target="_blank">
             <div class="neon-yt">YT : RIKISHOPREAL</div>
@@ -134,6 +135,7 @@
         </div>
 
         <button onclick="lihatPengguna()"><span>Refresh Daftar</span></button>
+        <input type="text" id="searchInput" placeholder="Cari nomor..." oninput="filterNomor()" style="margin: 10px 0; width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #00ffff; background: #000; color: #00ffff;" />
         <textarea id="outputArea" readonly></textarea>
         <button onclick="hapusNomor()"><span>Hapus Nomor</span></button>
         <button onclick="blacklistNomor()"><span>Blacklist Nomor</span></button>
@@ -219,5 +221,14 @@ document.addEventListener("DOMContentLoaded", function () {
       icon.textContent = "👁️";
     }
   }
+  
+  function filterNomor() {
+  const query = document.getElementById("searchInput").value.toLowerCase();
+  const area = document.getElementById("outputArea");
+  const lines = area.value.split('\n');
+
+  const filtered = lines.filter(line => line.toLowerCase().includes(query));
+  area.value = filtered.join('\n');
+}
   </script></body>
 </html>
