@@ -111,8 +111,11 @@
         <input type="text" id="adminSearchInput" placeholder="Cari nomor (Admin)..." oninput="pencarianAdminRealtime()" style="margin: 10px 0; width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #00ffff; background: #000; color: #00ffff;" />
 <div id="adminSearchResult" style="background-color: rgba(0,0,0,0.3); color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff; min-height: 80px;"></div>
 
-        <button onclick="lihatPengguna()"><span>Refresh Daftar</span></button>
-        <textarea id="outputArea" readonly></textarea>
+<button onclick="toggleDaftarOutput()"><span>Lihat Daftar Nomor</span></button>
+<div id="outputWrapper" class="hidden" style="margin-top: 1rem;">
+  <button onclick="lihatPengguna()"><span>Refresh Daftar</span></button>
+  <textarea id="outputArea" readonly style="margin-top: 0.5rem;"></textarea>
+</div>
         <button onclick="hapusNomor()"><span>Hapus Nomor</span></button>
         <button onclick="blacklistNomor()"><span>Blacklist Nomor</span></button>
         <select id="nomorSelect" style="background-color: #000000; color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff;">

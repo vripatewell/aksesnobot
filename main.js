@@ -330,6 +330,11 @@ async function blacklistNomor() {
     container.style.display = "none";
   }
 }
+
+  function toggleDaftarOutput() {
+    const wrapper = document.getElementById("outputWrapper");
+    wrapper.classList.toggle("hidden");
+  }
   
   function updateClock() {
       const now = new Date();
