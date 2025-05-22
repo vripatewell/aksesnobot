@@ -412,7 +412,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
   function pencarianUserRealtime() {
   const input = document.getElementById("userSearchInput").value.toLowerCase();
-  const semuaData = document.getElementById("userPrivate").value.split('\n');
+  const semuaData = document.getElementById("listUserArea").value.split('\n');
   const hasilDiv = document.getElementById("userSearchResult");
 
   if (input === "") {
