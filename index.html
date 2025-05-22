@@ -58,8 +58,9 @@
   <div id="listNomor" class="tab-pane hidden">
     <h3 style="margin-bottom: 4px; font-weight: bold;">DATA ANDA</h3>   <hr />
     <textarea id="userPrivate" style="margin-top: 0;"></textarea>
-     <input type="text" id="searchInput" placeholder="Cari nomor..." oninput="pencarianRealtime()" style="margin: 10px 0; width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #00ffff; background: #000; color: #00ffff;" />
-<div id="hasilPencarian" style="background-color: rgba(0,0,0,0.3); color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff; min-height: 80px;"></div>
+<input type="text" id="userSearchInput" placeholder="Cari nomor kamu..." oninput="pencarianUserRealtime()" style="margin: 10px 0; width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #00ffff; background: #000; color: #00ffff;" />
+
+<div id="userSearchResult" style="background-color: rgba(0,0,0,0.3); color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff; min-height: 80px;"></div>
     <button onclick="toggleDaftarNomor()"><span>Lihat Daftar Nomor</span></button>
 <div id="hasilPencarian" style="color: #00ffff; margin-bottom: 10px;"></div>
     <textarea id="listUserArea" class="hidden" readonly style="width: 100%; height: 120px;"></textarea>
