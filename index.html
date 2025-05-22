@@ -47,7 +47,7 @@
   <div id="loginScreen">
     <div class="container">
       <h2 style="text-align:center;">LOGIN DATABASE</h2>
-    </div></div><hr />
+         <hr />
 <div style="position: relative;">
   <input type="password" id="passwordLogin" placeholder="Masukkan password" style="width: 100%; padding-right: 40px;" />
   <span onclick="togglePassword('passwordLogin', this)"
@@ -55,8 +55,8 @@
                cursor: pointer; font-size: 18px;">👁️</span>
 </div>
       <button id="loginBtn"><span>Login</span></button>
-    
-  <audio id="loginMusic" src="musik.mp3" loop preload="auto"></audio> <audio id="notifSound" preload="auto"></audio>
+    </div>
+  </div><audio id="loginMusic" src="musik.mp3" loop preload="auto"></audio> <audio id="notifSound" preload="auto"></audio>
 
   <div id="clock-bar" class="jam-bar hidden"></div>
   <div id="status" class="status-message hidden"></div>
@@ -113,7 +113,7 @@
 </div>
 </div>
 
-
+  <div class="status hidden" id="statusAdmin"></div>
   </div>   <div id="adminPanel" class="tab-pane hidden">
       <div class="container">
         <div style="text-align: center; margin-top: 10px;">
@@ -140,12 +140,11 @@
           <option value="">Pilih nomor...</option>
         </select>
         <button onclick="kembali(true)"><span>BCK</span></button>
-          <div id="statusAdmin" class="status hidden"></div>
       </div>
     </div>
   </div>
 </div>
-<script src="main.js"></script>  <script>
+  </div>  <script src="main.js"></script>  <script>
     function updateClock() {
       const now = new Date();
       const hari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
@@ -219,24 +218,5 @@ document.addEventListener("DOMContentLoaded", function () {
       icon.textContent = "👁️";
     }
   }
-
-    function showStatusAdmin(message, type = 'success') {
-  const el = document.getElementById("statusAdmin");
-  const sound = document.getElementById("notifSound");
-
-  sound.src = type === 'success' ? "benar.mp3" : "salah.mp3";
-  el.innerText = message;
-  el.className = `status ${type}`;
-  el.classList.remove("hidden");
-  el.style.opacity = 1;
-
-  sound.currentTime = 0;
-  sound.play();
-
-  setTimeout(() => {
-    el.style.opacity = 0;
-    setTimeout(() => el.classList.add("hidden"), 500);
-  }, 3000);
-}
   </script></body>
 </html>
