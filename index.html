@@ -103,6 +103,7 @@
 </div>
 
   </div>  <div class="tab-pane hidden" id="adminPanel">
+  <div class="admin-wrapper">
     <div style="text-align: center; margin-top: 10px;">
       <a href="https://youtube.com/@rikishopreal" target="_blank">
         <div class="neon-yt">YT : RIKISHOPREAL</div>
@@ -143,44 +144,42 @@
     updateClock();
     
     function showStatusLogin(message, type = 'success') {
-      const el = document.getElementById("status");
-      const sound = document.getElementById("notifSound");
+  const el = document.getElementById("status");
+  const sound = document.getElementById("notifSound");
 
-      if (type === 'success') {
-        sound.src = "benar.mp3";
-      } else {
-        sound.src = "salah.mp3";
-      }
+  sound.src = type === 'success' ? "benar.mp3" : "salah.mp3";
+  el.innerText = message;
+  el.className = `status ${type}`;
+  el.classList.remove("hidden");
+  el.style.opacity = 1;
 
-      el.innerText = message;
-      el.className = `status ${type}`;
-      el.classList.remove("hidden");
-      el.style.opacity = 1;
+  sound.currentTime = 0;
+  sound.play();
 
-      sound.currentTime = 0;
-      sound.play();
+  setTimeout(() => {
+    el.style.opacity = 0;
+    setTimeout(() => el.classList.add("hidden"), 500);
+  }, 3000);
+}
 
-      setTimeout(() => {
-        el.style.opacity = 0;
-        setTimeout(() => el.classList.add("hidden"), 500);
-      }, 3000);
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("loginBtn").addEventListener("click", function () {
+    const pass = document.getElementById("passwordLogin").value.trim();
+
+    if (pass === "") {
+      showStatusLogin("Password belum diisi!", "error");
+    } else if (pass === "masuk123") {
+      document.getElementById("loginScreen").classList.add("hidden");
+      document.getElementById("mainForm").classList.remove("hidden");
+      document.getElementById("clock-bar").classList.remove("hidden");
+      document.getElementById("status").classList.remove("hidden");
+      document.getElementById("loginMusic").play().catch(() => console.warn("Autoplay diblokir."));
+      showStatusLogin("Login berhasil!", "success");
+    } else {
+      showStatusLogin("Password salah!", "error");
     }
-
-    document.addEventListener("DOMContentLoaded", function () {
-      document.getElementById("loginBtn").addEventListener("click", function () {
-        const pass = document.getElementById("passwordLogin").value;
-        if (pass === "masuk123") {
-          document.getElementById("loginScreen").classList.add("hidden");
-          document.getElementById("mainForm").classList.remove("hidden");
-          document.getElementById("clock-bar").classList.remove("hidden");
-          document.getElementById("status").classList.remove("hidden");
-          document.getElementById("loginMusic").play().catch(() => console.warn("Autoplay diblokir."));
-          showStatusLogin("Login berhasil!", "success");
-        } else {
-          showStatusLogin("Password salah!", "warning");
-        }
-      });
-    });
+  });
+});
 
     function showTab(tabId) {
       const tabs = document.querySelectorAll(".tab-pane");
