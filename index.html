@@ -59,6 +59,8 @@
       <a href="https://youtube.com/@rikishopreal" target="_blank">
         <div class="neon-yt">YT : RIKISHOPREAL</div>
       </a>
+      
+      
 <div class="navbar">
       <button onclick="showTab('addAkses')">Add Akses</button>
       <button onclick="showTab('listNomor')">List Nomor</button>
@@ -94,10 +96,13 @@
     <h2 style="margin-bottom: 4px; font-weight: bold;">AKSES ADMIN BOT</h2>   <hr />
     <input type="password" id="adminPass" placeholder="Password Admin" />
     <button onclick="adminLogin()"><span>Login Admin</span></button>
+    <div class="status hidden" id="status" style="position: fixed; top: 15px; left: 50%; transform: translateX(-50%); z-index: 999;"></div>
+  </div>
+  <p id="status" style="text-align:center; color:#00faff; margin-top:10px;"></p>
   </div>
 </div>
 
-  </div>  <div class="container hidden" id="adminPanel">
+  </div>  <div class="tab-pane hidden" id="adminPanel">
     <div style="text-align: center; margin-top: 10px;">
       <a href="https://youtube.com/@rikishopreal" target="_blank">
         <div class="neon-yt">YT : RIKISHOPREAL</div>
@@ -136,18 +141,25 @@
     }
     setInterval(updateClock, 1000);
     updateClock();
-
+    
     function showStatusLogin(message, type = 'success') {
       const el = document.getElementById("status");
       const sound = document.getElementById("notifSound");
 
-      sound.src = type === 'success' ? "benar.mp3" : "salah.mp3";
+      if (type === 'success') {
+        sound.src = "benar.mp3";
+      } else {
+        sound.src = "salah.mp3";
+      }
+
       el.innerText = message;
       el.className = `status ${type}`;
       el.classList.remove("hidden");
       el.style.opacity = 1;
+
       sound.currentTime = 0;
       sound.play();
+
       setTimeout(() => {
         el.style.opacity = 0;
         setTimeout(() => el.classList.add("hidden"), 500);
