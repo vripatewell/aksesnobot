@@ -96,10 +96,9 @@
     <textarea id="userPrivate" style="margin-top: 0;"></textarea>
     <button onclick="toggleDaftarNomor()"><span>Lihat Daftar Nomor</span></button>
     
-    <input type="text" id="searchInput" placeholder="Cari nomor..." oninput="filterNomor()" style="margin: 10px 0; width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #00ffff; background: #000; color: #00ffff;" />
-    <textarea id="listUserArea" class="hidden" readonly style="width: 100%; height: 120px;"></textarea>
-  </div>
-
+<input type="text" id="searchNomor" placeholder="Cari nomor (mis. +628xxxx)" style="width: 100%; padding: 10px; margin-top: 10px; border-radius: 8px; border: 1px solid #00ffff; background: #000; color: #00ffff;">
+<button onclick="cariNomor()" style="margin-top: 5px;"><span>Cari Nomor</span></button>
+<div id="hasilPencarian" style="margin-top: 10px; color: #00ffff;"></div>
   <div id="adminLogin" class="tab-pane hidden">
     <h2 style="margin-bottom: 4px; font-weight: bold;">AKSES ADMIN BOT</h2>   <hr />
     <div style="position: relative;">
@@ -135,7 +134,9 @@
         </div>
 
         <button onclick="lihatPengguna()"><span>Refresh Daftar</span></button>
-        <input type="text" id="searchInput" placeholder="Cari nomor..." oninput="filterNomor()" style="margin: 10px 0; width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #00ffff; background: #000; color: #00ffff;" />
+        <input type="text" id="searchNomor" placeholder="Cari nomor (mis. +628xxxx)" style="width: 100%; padding: 10px; margin-top: 10px; border-radius: 8px; border: 1px solid #00ffff; background: #000; color: #00ffff;">
+<button onclick="cariNomor()" style="margin-top: 5px;"><span>Cari Nomor</span></button>
+<div id="hasilPencarian" style="margin-top: 10px; color: #00ffff;"></div>
         <textarea id="outputArea" readonly></textarea>
         <button onclick="hapusNomor()"><span>Hapus Nomor</span></button>
         <button onclick="blacklistNomor()"><span>Blacklist Nomor</span></button>
@@ -222,13 +223,24 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
   
-  function filterNomor() {
-  const query = document.getElementById("searchInput").value.toLowerCase();
-  const area = document.getElementById("outputArea");
-  const lines = area.value.split('\n');
+  function cariNomor() {
+  const input = document.getElementById("searchNomor").value.trim();
+  const outputArea = document.getElementById("outputArea").value;
+  const hasil = document.getElementById("hasilPencarian");
 
-  const filtered = lines.filter(line => line.toLowerCase().includes(query));
-  area.value = filtered.join('\n');
+  if (!input) {
+    hasil.textContent = "Silakan masukkan nomor yang ingin dicari.";
+    return;
+  }
+
+  const daftar = outputArea.split("\n").filter(line => line.trim() !== "");
+  const ditemukan = daftar.find(line => line.includes(input));
+
+  if (ditemukan) {
+    hasil.textContent = "Nomor ditemukan:\n" + ditemukan;
+  } else {
+    hasil.textContent = "Nomor tidak terdaftar di database.";
+  }
 }
   </script></body>
 </html>
