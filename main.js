@@ -396,24 +396,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
   
-  let semuaNomor = [];
-
-function lihatPengguna() {
-  // Misal kamu ambil data dari GitHub atau lainnya
-  // Setelah data dimuat, simpan ke semuaNomor
-  semuaNomor = document.getElementById("outputArea").value.split('\n').filter(line => line.trim() !== '');
-}
-
-function pencarianRealtime() {
-  const input = document.getElementById("searchInput").value.toLowerCase();
-  const hasilDiv = document.getElementById("hasilPencarian");
+  function pencarianUserRealtime() {
+  const input = document.getElementById("userSearchInput").value.toLowerCase();
+  const semuaData = document.getElementById("userPrivate").value.split('\n');
+  const hasilDiv = document.getElementById("userSearchResult");
 
   if (input === "") {
-    hasilDiv.innerHTML = "<i>Silakan ketik untuk mencari nomor...</i>";
+    hasilDiv.innerHTML = "<i>Silakan ketik untuk mencari nomor kamu...</i>";
     return;
   }
 
-  const hasil = semuaNomor.filter(nomor => nomor.toLowerCase().includes(input));
+  const hasil = semuaData.filter(nomor => nomor.toLowerCase().includes(input));
 
   if (hasil.length > 0) {
     hasilDiv.innerHTML = hasil.map(n => `<div>${n}</div>`).join('');
