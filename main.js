@@ -122,20 +122,27 @@ function updateUserListForUser() {
 function tampilkanDataUserSendiri() {
   const data = JSON.parse(localStorage.getItem("userData"));
   const userArea = document.getElementById("userPrivate");
+
   if (data) {
-    userArea.innerHTML = `Nomor: ${data.nomor}
-Password: ${data.password}
-    
-CATATAN PENTING
-Silahkan salin data anda agar tidak hilang
-Karena setiap web te refresh data akan hilang 
-dan juga kalo anda masukan nomor baru maka
-data sebelumnya akan tergantikan oleh yang baru
-jadi kesimpulannya data ini hanya 1x kirim salin
-untuk mengamankan data agar tidak hilang 
+    userArea.innerHTML = `
+      <div style="white-space: pre-wrap; color: #00ffff;">
+        ========== DATA ANDA ==========
+        Nomor    : ${data.nomor}
+        Password : ${data.password}
+
+        ========== CATATAN ==========
+        - Silakan salin data Anda agar tidak hilang.
+        - Data akan hilang saat halaman di-refresh.
+        - Jika Anda menambahkan nomor baru, data lama akan tergantikan.
+        - Data ini hanya tampil 1x. Salin sekarang untuk keamanan.
+      </div>
     `;
   } else {
-    userArea.innerHTML = "Belum ada data disimpan.";
+    userArea.innerHTML = `
+      <div style="color: #ff4c4c;">
+        Belum ada data disimpan.
+      </div>
+    `;
   }
 }
 
@@ -390,14 +397,30 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+
+
     function showTab(tabId) {
-      const tabs = document.querySelectorAll(".tab-pane");
-      tabs.forEach(tab => tab.classList.add("hidden"));
-      document.getElementById(tabId).classList.remove("hidden");
-      const buttons = document.querySelectorAll(".nav-tabs button");
-      buttons.forEach(btn => btn.classList.remove("active"));
+  const loadingOverlay = document.getElementById("loadingOverlay");
+
+  // Tampilkan loading
+  loadingOverlay.classList.remove("hidden");
+
+  setTimeout(() => {
+    const tabs = document.querySelectorAll(".tab-pane");
+    tabs.forEach(tab => tab.classList.add("hidden"));
+
+    document.getElementById(tabId).classList.remove("hidden");
+
+    const buttons = document.querySelectorAll(".nav-tabs button");
+    buttons.forEach(btn => btn.classList.remove("active"));
+    if (event && event.target) {
       event.target.classList.add("active");
     }
+
+    // Sembunyikan loading setelah tab muncul
+    loadingOverlay.classList.add("hidden");
+  }, 500); // durasi loading
+}
    
   function togglePassword(inputId, icon) {
     const input = document.getElementById(inputId);
@@ -411,21 +434,30 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   
   function pencarianUserRealtime() {
-  const input = document.getElementById("userSearchInput").value.toLowerCase();
-  const semuaData = document.getElementById("listUserArea").value.split('\n');
-  const hasilDiv = document.getElementById("userSearchResult");
+  const input = document.getElementById("userSearchInput").value.trim();
+  const resultArea = document.getElementById("userSearchResult");
 
-  if (input === "") {
-    hasilDiv.innerHTML = "<i>Silakan ketik untuk mencari nomor kamu...</i>";
+  let dataNomor = [];
+  if (localStorage.getItem("dataNomor")) {
+    dataNomor = JSON.parse(localStorage.getItem("dataNomor"));
+  }
+
+  if (!input) {
+    resultArea.innerHTML = "Masukkan nomor untuk mencari.";
     return;
   }
 
-  const hasil = semuaData.filter(nomor => nomor.toLowerCase().includes(input));
+  const found = dataNomor.find(item => item.nomor === input);
 
-  if (hasil.length > 0) {
-    hasilDiv.innerHTML = hasil.map(n => `<div>${n}</div>`).join('');
+  if (found) {
+    resultArea.innerHTML = `
+      <strong>Nomor Ditemukan!</strong><br>
+      Nomor: ${found.nomor}<br>
+      Tanggal: ${found.tanggal || "Tidak tersedia"}<br>
+      Status: ${found.status || "Tidak diketahui"}
+    `;
   } else {
-    hasilDiv.innerHTML = "<b>Nomor tidak terdaftar di database.</b>";
+    resultArea.innerHTML = "Nomor tidak terdaftar.";
   }
 }
 
@@ -455,6 +487,24 @@ function toggleUserData() {
   } else {
     container.style.display = "none";
   }
+}
+
+// Tampilkan loader saat awal buka halaman
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    document.getElementById("loader").style.display = "none";
+  }, 1000); // animasi minimal 1 detik
+});
+
+// Tampilkan loader saat masuk ke halaman admin
+function showAdminPanel() {
+  document.getElementById("loader").style.display = "flex";
+  setTimeout(() => {
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("loginSection").style.display = "none";
+    document.getElementById("adminPanel").style.display = "block";
+    renderAdminData(); // misalnya fungsi render data admin
+  }, 1000);
 }
 
 updateBlacklistArea(); // tambahkan ini

@@ -24,6 +24,7 @@
 
   <div id="clock-bar" class="jam-bar hidden"></div>
   <div id="status" class="status-message hidden"></div>
+  
 <div class="container hidden" id="mainForm">
     <div style="text-align: center; margin-top: 10px;">
       <a href="https://youtube.com/@rikishopreal" target="_blank">
@@ -36,7 +37,10 @@
       <button onclick="showTab('listNomor')">List Nomor</button>
       <button onclick="showTab('adminLogin')">Admin Login</button>
     </div>
-
+    
+<div id="loadingOverlay" class="loading-overlay hidden">
+  <div class="spinner"></div>
+</div>
 <div class="tab-content">
   <div id="addAkses" class="tab-pane">
     <h2>Tambah Nomor Akses</h2><hr />
@@ -110,7 +114,7 @@
   <button onclick="lihatPengguna()" title="Refresh Daftar"><span>🔁</span></button>
   <textarea id="outputArea" readonly style="margin-top: 0.5rem;"></textarea>
 </div>
-
+<hr />
          <h4 style="margin-bottom: 4px; font-weight: bold;">unblacklist nomor</h4>
         <button onclick="toggleBlacklist()"><span>Lihat Daftar Blacklist</span></button>
 
@@ -133,6 +137,12 @@
       </div>
     </div>
   </div>
+</div>
+<div id="loader" class="loader-container">
+  <div class="spinner"></div>
+  <h4 style="margin-top: 0; font-weight: bold; font-size: 18px; border-bottom: 1px solid #00ffff; padding-bottom: 5px; text-align: center;">
+  sedang  memuat...
+  </h4>
 </div>
   </div>  <script src="main.js"></script>
   </body>
