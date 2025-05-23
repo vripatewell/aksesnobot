@@ -88,15 +88,25 @@
   <p id="status" style="text-align:center; color:#00faff; margin-top:10px;"></p>
 </div>
 </div>
-
-  <div class="status hidden" id="statusAdmin"></div>
-  </div>   <div id="adminPanel" class="tab-pane hidden">
+  </div> 
+  
+  <div id="adminPanel" class="tab-pane hidden">
       <div class="container">
+        <div class="status hidden" id="statusAdmin"></div>
         <div style="text-align: center; margin-top: 10px;">
           <a href="https://youtube.com/@rikishopreal" target="_blank">
             <div class="neon-yt">YT : RIKISHOPREAL</div>
           </a>
         </div>
+        
+        <div class="navbar">
+      <button onclick="showTab('listAkses')">Add Akses</button>
+      <button onclick="showTab('rikiSh')">List Nomor</button>
+      <button onclick="showTab('rikiPh')">Admin Login</button>
+    </div>
+        
+        <div class="tab-content">
+  <div id="listAkses" class="tab-pane">
         <h2 style="text-align: center;">AKSES ADMIN BOT</h2>
         <hr />
         <button onclick="toggleBlacklist()"><span>Lihat Daftar Blacklist</span></button>
@@ -104,18 +114,23 @@
         <div id="blacklistBox" class="hidden">
           <h4>Nomor yang Diblacklist</h4>
           <textarea id="blacklistArea" readonly style="background-color: rgba(0, 0, 0, 0.2); color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff;"></textarea>
-          <button onclick="hapusDariBlacklist()"><span>Hapus dari Blacklist</span></button>
           <select id="blacklistSelect" style="background-color: #000000; color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff;"></select>
+          <button onclick="hapusDariBlacklist()"><span>Hapus dari Blacklist</span></button>
         </div>
-
+        
+        
+<div id="rikiSh" class="tab-pane hidden">
         <input type="text" id="adminSearchInput" placeholder="Cari nomor (Admin)..." oninput="pencarianAdminRealtime()" style="margin: 10px 0; width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #00ffff; background: #000; color: #00ffff;" />
 <div id="adminSearchResult" style="background-color: rgba(0,0,0,0.3); color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff; min-height: 80px;"></div>
 
 <button onclick="toggleDaftarOutput()"><span>Lihat Daftar Nomor</span></button>
 <div id="outputWrapper" class="hidden" style="margin-top: 1rem;">
-  <button onclick="lihatPengguna()"><span>Refresh Daftar</span></button>
+  <button onclick="lihatPengguna()" title="Refresh Daftar"><span>🔁</span></button>
   <textarea id="outputArea" readonly style="margin-top: 0.5rem;"></textarea>
 </div>
+
+<div id="rikiPh" class="tab-pane hidden">
+
         <button onclick="hapusNomor()"><span>Hapus Nomor</span></button>
         <button onclick="blacklistNomor()"><span>Blacklist Nomor</span></button>
         <select id="nomorSelect" style="background-color: #000000; color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff;">
