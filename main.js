@@ -507,6 +507,93 @@ function showAdminPanel() {
   }, 1000);
 }
 
+ const loaderText = document.getElementById('loader-text');
+  setTimeout(() => {
+    loaderText.textContent = '𝑹𝑬𝑨𝑫𝒀 !';
+  }, 2000);
+  setTimeout(() => {
+    document.getElementById('loader-container').style.display = 'none';
+    document.getElementById('main-app').style.display = 'block';
+  }, 3000);
+  
+  const snowCanvas = document.getElementById('snow');
+  const snowCtx = snowCanvas.getContext('2d');
+  snowCanvas.width = window.innerWidth;
+  snowCanvas.height = window.innerHeight;
+
+  const snowflakes = Array.from({ length: 100 }, () => ({
+    x: Math.random() * snowCanvas.width,
+    y: Math.random() * snowCanvas.height,
+    radius: Math.random() * 3 + 1,
+    speedY: Math.random() * 1 + 0.5
+  }));
+
+  function drawSnowflakes() {
+    snowCtx.clearRect(0, 0, snowCanvas.width, snowCanvas.height);
+    snowCtx.fillStyle = 'white';
+    snowCtx.beginPath();
+    for (const flake of snowflakes) {
+      snowCtx.moveTo(flake.x, flake.y);
+      snowCtx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
+    }
+    snowCtx.fill();
+    updateSnowflakes();
+  }
+
+  function updateSnowflakes() {
+    for (const flake of snowflakes) {
+      flake.y += flake.speedY;
+      if (flake.y > snowCanvas.height) {
+        flake.y = 0;
+        flake.x = Math.random() * snowCanvas.width;
+      }
+    }
+  }
+
+  function animateSnow() {
+    drawSnowflakes();
+    requestAnimationFrame(animateSnow);
+  }
+
+  animateSnow();
+
+  window.addEventListener('resize', () => {
+    snowCanvas.width = window.innerWidth;
+    snowCanvas.height = window.innerHeight;
+  });
+  
+  const canvas = document.getElementById("particles");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const particles = [];
+  for (let i = 0; i < 80; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: Math.random() * 2 + 1,
+      color: `hsl(${Math.random() * 360}, 100%, 60%)`,
+      speedX: Math.random() * 0.5 - 0.25,
+      speedY: Math.random() * 0.5 - 0.25,
+    });
+  }
+  function drawParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+      p.x += p.speedX;
+      p.y += p.speedY;
+      if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+    });
+    requestAnimationFrame(drawParticles);
+  }
+  drawParticles();
+     
+
 updateBlacklistArea(); // tambahkan ini
 updateOutputList();
 updateSelectOptions();
