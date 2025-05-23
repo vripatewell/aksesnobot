@@ -100,16 +100,7 @@
         </div>
         <h2 style="text-align: center;">AKSES ADMIN BOT</h2>
         <hr />
-        <button onclick="toggleBlacklist()"><span>Lihat Daftar Blacklist</span></button>
-
-        <div id="blacklistBox" class="hidden">
-          <h4>Nomor yang Diblacklist</h4>
-          <textarea id="blacklistArea" readonly style="background-color: rgba(0, 0, 0, 0.2); color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff;"></textarea>
-          <select id="blacklistSelect" style="background-color: #000000; color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff;"></select>
-          <button onclick="hapusDariBlacklist()"><span>Hapus dari Blacklist</span></button>
-        </div>
-        
-    <h4 style="margin-bottom: 4px; font-weight: bold;">List Nomor user</h4><hr />
+    <h4 style="margin-bottom: 4px; font-weight: bold;">List Nomor user</h4>
 
         <input type="text" id="adminSearchInput" placeholder="Cari nomor (Admin)..." oninput="pencarianAdminRealtime()" style="margin: 10px 0; width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #00ffff; background: #000; color: #00ffff;" />
 <div id="adminSearchResult" style="background-color: rgba(0,0,0,0.3); color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff; min-height: 80px;"></div>
@@ -120,7 +111,18 @@
   <textarea id="outputArea" readonly style="margin-top: 0.5rem;"></textarea>
 </div>
 
-    <h4 style="margin-bottom: 4px; font-weight: bold;">Hapus & Blacklist</h4><hr />
+         <h4 style="margin-bottom: 4px; font-weight: bold;">unblacklist nomor</h4>
+        <button onclick="toggleBlacklist()"><span>Lihat Daftar Blacklist</span></button>
+
+        <div id="blacklistBox" class="hidden">
+          <h4>Nomor yang Diblacklist</h4>
+          <textarea id="blacklistArea" readonly style="background-color: rgba(0, 0, 0, 0.2); color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff;"></textarea>
+          <select id="blacklistSelect" style="background-color: #000000; color: #00ffff; border: 1px solid #00ffff; border-radius: 10px; padding: 10px; box-shadow: 0 0 15px #00ffff;"></select>
+          <button onclick="hapusDariBlacklist()"><span>Hapus dari Blacklist</span></button>
+        </div>
+
+<hr />
+    <h4 style="margin-bottom: 4px; font-weight: bold;">Hapus & Blacklist</h4>
 
         <button onclick="hapusNomor()"><span>Hapus Nomor</span></button>
         <button onclick="blacklistNomor()"><span>Blacklist Nomor</span></button>
