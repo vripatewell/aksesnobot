@@ -125,17 +125,15 @@ function tampilkanDataUserSendiri() {
 
   if (data) {
     userArea.innerHTML = `
-      <div style="white-space: pre-wrap; color: #00ffff;">
-        ========== DATA ANDA ==========
-        Nomor    : ${data.nomor}
-        Password : ${data.password}
+========== DATA ANDA ==========
+Nomor    : ${data.nomor}
+Password : ${data.password}
 
-        ========== CATATAN ==========
-        - Silakan salin data Anda agar tidak hilang.
-        - Data akan hilang saat halaman di-refresh.
-        - Jika Anda menambahkan nomor baru, data lama akan tergantikan.
-        - Data ini hanya tampil 1x. Salin sekarang untuk keamanan.
-      </div>
+========== CATATAN ==========
+- Silakan salin data Anda agar tidak hilang.
+- Data akan hilang saat halaman di-refresh.
+- Jika Anda menambahkan nomor baru, data lama akan tergantikan.
+- Data ini hanya tampil 1x. Salin sekarang untuk keamanan.
     `;
   } else {
     userArea.innerHTML = `
@@ -434,30 +432,22 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   
   function pencarianUserRealtime() {
-  const input = document.getElementById("userSearchInput").value.trim();
-  const resultArea = document.getElementById("userSearchResult");
+  const input = document.getElementById("userSearchInput").value.toLowerCase();
+  const listText = document.getElementById("listUserArea").value;
+  const semuaData = listText.split('\n');
+  const hasilDiv = document.getElementById("userSearchResult");
 
-  let dataNomor = [];
-  if (localStorage.getItem("dataNomor")) {
-    dataNomor = JSON.parse(localStorage.getItem("dataNomor"));
-  }
-
-  if (!input) {
-    resultArea.innerHTML = "Masukkan nomor untuk mencari.";
+  if (input === "") {
+    hasilDiv.innerHTML = "<i>Silakan ketik untuk mencari nomor kamu...</i>";
     return;
   }
 
-  const found = dataNomor.find(item => item.nomor === input);
+  const hasil = semuaData.filter(baris => baris.toLowerCase().includes(input));
 
-  if (found) {
-    resultArea.innerHTML = `
-      <strong>Nomor Ditemukan!</strong><br>
-      Nomor: ${found.nomor}<br>
-      Tanggal: ${found.tanggal || "Tidak tersedia"}<br>
-      Status: ${found.status || "Tidak diketahui"}
-    `;
+  if (hasil.length > 0) {
+    hasilDiv.innerHTML = hasil.map(n => `<div>${n}</div>`).join('');
   } else {
-    resultArea.innerHTML = "Nomor tidak terdaftar.";
+    hasilDiv.innerHTML = "<b>Nomor tidak terdaftar di database.</b>";
   }
 }
 
@@ -498,13 +488,22 @@ window.addEventListener("load", () => {
 
 // Tampilkan loader saat masuk ke halaman admin
 function showAdminPanel() {
-  document.getElementById("loader").style.display = "flex";
+  const loaderContainer = document.getElementById("loader-container");
+  const loaderText = document.getElementById("loader-text");
+
+  loaderText.textContent = "𝑳𝑶𝑨𝑫𝑰𝑵𝑮...";
+  loaderContainer.style.display = "flex";
+
   setTimeout(() => {
-    document.getElementById("loader").style.display = "none";
-    document.getElementById("loginSection").style.display = "none";
-    document.getElementById("adminPanel").style.display = "block";
-    renderAdminData(); // misalnya fungsi render data admin
-  }, 1000);
+    loaderText.textContent = "𝑹𝑬𝑨𝑫𝒀 !";
+  }, 2000);
+
+  setTimeout(() => {
+    loaderContainer.style.display = "none";
+    document.getElementById("mainForm").classList.add("hidden");
+    document.getElementById("adminPanel").classList.remove("hidden");
+    renderAdminData(); // jika kamu punya fungsi renderAdminData()
+  }, 3000);
 }
 
  const loaderText = document.getElementById('loader-text');
